@@ -75,7 +75,7 @@ const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) 
           key={`section${sectionIndex}-${u}`}
           onPress={() => handleScroll(sectionIndex, index + 1)}
           text={u}
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
         />
       ))}
     </View>
@@ -165,7 +165,7 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<'DemoShowroom'>> =
           ref={drawerRef}
           drawerWidth={Platform.select({ default: 326, web: Dimensions.get('window').width * 0.3 })}
           drawerType={'slide'}
-          drawerPosition={isRTL ? 'right' : 'left'}
+          drawerPosition={isRTL() ? 'right' : 'left'}
           overlayColor={open ? colors.palette.overlay20 : 'transparent'}
           onDrawerSlide={(drawerProgress) => {
             progress.value = open ? 1 - drawerProgress : drawerProgress

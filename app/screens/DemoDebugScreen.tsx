@@ -113,7 +113,7 @@ const $title: TextStyle = {
 const $reportBugsLink: TextStyle = {
   color: colors.tint,
   marginBottom: spacing.lg,
-  alignSelf: isRTL ? 'flex-start' : 'flex-end',
+  alignSelf: isRTL() ? 'flex-start' : 'flex-end',
 }
 
 const $item: ViewStyle = {

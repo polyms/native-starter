@@ -1,4 +1,5 @@
 import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   StyleProp,
   TextInput,
@@ -8,7 +9,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
-import { isRTL, translate } from '../i18n'
+import { isRTL } from '../i18n'
 import { colors, spacing, typography } from '../theme'
 import { Text, TextProps } from './Text'
 
@@ -124,12 +125,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ...TextInputProps
   } = props
   const input = useRef<TextInput>()
+  const { t } = useTranslation()
 
   const disabled = TextInputProps.editable === false || status === 'disabled'
 
-  const placeholderContent = placeholderTx
-    ? translate(placeholderTx, placeholderTxOptions)
-    : placeholder
+  const placeholderContent = placeholderTx ? t(placeholderTx, placeholderTxOptions) : placeholder
 
   const $containerStyles = [$containerStyleOverride]
 
@@ -147,10 +147,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   const $inputStyles = [
     $inputStyle,
     disabled && { color: colors.textDim },
-    isRTL && { textAlign: 'right' as TextStyle['textAlign'] },
-    TextInputProps.multiline && { height: 'auto' },
+    isRTL() && { textAlign: 'right' as TextStyle['textAlign'] } as TextStyle,
+    TextInputProps.multiline && { height: 'auto' } as TextStyle,
     $inputStyleOverride,
-  ]
+  ].filter((x) => !!x)
 
   const $helperStyles = [
     $helperStyle,

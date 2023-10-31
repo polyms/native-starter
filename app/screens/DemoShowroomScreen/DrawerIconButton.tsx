@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Pressable, PressableProps, ViewStyle } from 'react-native'
 import Animated, {
   interpolate,
@@ -7,8 +7,8 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 import type { SharedValue } from 'react-native-reanimated'
-import { isRTL } from '../../i18n'
 import { colors, spacing } from '../../theme'
+import { useTranslation } from 'react-i18next'
 
 interface DrawerIconButtonProps extends PressableProps {
   open: boolean
@@ -19,6 +19,9 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function DrawerIconButton(props: DrawerIconButtonProps) {
   const { open, progress, ...PressableProps } = props
+  const { i18n } = useTranslation()
+
+  const isRTL = useMemo(() => i18n.dir() === 'rtl', [i18n.language])
 
   const animatedContainerStyles = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [0, isRTL ? 60 : -60])

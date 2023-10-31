@@ -107,7 +107,7 @@ const $welcomeFace: ImageStyle = {
   position: 'absolute',
   bottom: -47,
   right: -80,
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
+  transform: [{ scaleX: isRTL() ? -1 : 1 }],
 }
 
 const $welcomeHeading: TextStyle = {

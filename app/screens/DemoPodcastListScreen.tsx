@@ -2,6 +2,7 @@
 // https://ignitecookbook.com/docs/recipes/MigratingToFlashList
 import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   AccessibilityProps,
   ActivityIndicator,
@@ -22,7 +23,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 import { Button, Card, EmptyState, Icon, Screen, Text, Toggle } from '../components'
-import { isRTL, translate } from '../i18n'
+import { isRTL } from '../i18n'
 import { useStores } from '../models'
 import { Episode } from '../models/Episode'
 import { DemoTabScreenProps } from '../navigators/DemoNavigator'
@@ -39,6 +40,7 @@ const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
 
 export const DemoPodcastListScreen: FC<DemoTabScreenProps<'DemoPodcastList'>> = observer(
   function DemoPodcastListScreen(_props) {
+    const { t } = useTranslation()
     const { episodeStore } = useStores()
 
     const [refreshing, setRefreshing] = React.useState(false)
@@ -110,7 +112,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<'DemoPodcastList'>> = 
                     labelTx="demoPodcastListScreen.onlyFavorites"
                     labelPosition="left"
                     labelStyle={$labelStyle}
-                    accessibilityLabel={translate('demoPodcastListScreen.accessibility.switch')}
+                    accessibilityLabel={t('demoPodcastListScreen.accessibility.switch')}
                   />
                 </View>
               )}
@@ -139,6 +141,7 @@ const EpisodeCard = observer(function EpisodeCard({
   onPressFavorite: () => void
   isFavorite: boolean
 }) {
+  const { t } = useTranslation()
   const liked = useSharedValue(isFavorite ? 1 : 0)
 
   const imageUri = useMemo(() => {
@@ -178,7 +181,7 @@ const EpisodeCard = observer(function EpisodeCard({
       Platform.select<AccessibilityProps>({
         ios: {
           accessibilityLabel: episode.title,
-          accessibilityHint: translate('demoPodcastListScreen.accessibility.cardHint', {
+          accessibilityHint: t('demoPodcastListScreen.accessibility.cardHint', {
             action: isFavorite ? 'unfavorite' : 'favorite',
           }),
         },
@@ -187,7 +190,7 @@ const EpisodeCard = observer(function EpisodeCard({
           accessibilityActions: [
             {
               name: 'longpress',
-              label: translate('demoPodcastListScreen.accessibility.favoriteAction'),
+              label: t('demoPodcastListScreen.accessibility.favoriteAction'),
             },
           ],
           onAccessibilityAction: ({ nativeEvent }) => {
@@ -270,8 +273,8 @@ const EpisodeCard = observer(function EpisodeCard({
           style={[$favoriteButton, isFavorite && $unFavoriteButton]}
           accessibilityLabel={
             isFavorite
-              ? translate('demoPodcastListScreen.accessibility.unfavoriteIcon')
-              : translate('demoPodcastListScreen.accessibility.favoriteIcon')
+              ? t('demoPodcastListScreen.accessibility.unfavoriteIcon')
+              : t('demoPodcastListScreen.accessibility.favoriteIcon')
           }
           LeftAccessory={ButtonLeftAccessory}
         >
@@ -281,8 +284,8 @@ const EpisodeCard = observer(function EpisodeCard({
             weight="medium"
             text={
               isFavorite
-                ? translate('demoPodcastListScreen.unfavoriteButton')
-                : translate('demoPodcastListScreen.favoriteButton')
+                ? t('demoPodcastListScreen.unfavoriteButton')
+                : t('demoPodcastListScreen.favoriteButton')
             }
           />
         </Button>
@@ -368,7 +371,7 @@ const $emptyState: ViewStyle = {
 }
 
 const $emptyStateImage: ImageStyle = {
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
+  transform: [{ scaleX: isRTL() ? -1 : 1 }],
 }
 // #endregion
 

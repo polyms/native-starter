@@ -1,7 +1,7 @@
-import { TranslateOptions } from 'i18n-js'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from 'react-native'
-import { isRTL, translate, TxKeyPath } from '../i18n'
+import { isRTL, TxKeyPath } from '../i18n'
 import { colors, typography } from '../theme'
 
 type Sizes = keyof typeof $sizeStyles
@@ -21,7 +21,7 @@ export interface TextProps extends RNTextProps {
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  txOptions?: TranslateOptions
+  txOptions?: unknown
   /**
    * An optional style override useful for padding & margin.
    */
@@ -52,8 +52,10 @@ export interface TextProps extends RNTextProps {
  */
 export function Text(props: TextProps) {
   const { weight, size, tx, txOptions, text, children, style: $styleOverride, ...rest } = props
+  const { t } = useTranslation()
 
-  const i18nText = tx && translate(tx, txOptions)
+  const $rtlStyle: TextStyle = isRTL() ? { writingDirection: 'rtl' } : {}
+  const i18nText = tx && t(tx, txOptions)
   const content = i18nText || text || children
 
   const preset: Presets = $presets[props.preset] ? props.preset : 'default'
@@ -105,5 +107,3 @@ const $presets = {
 
   formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
 }
-
-const $rtlStyle: TextStyle = isRTL ? { writingDirection: 'rtl' } : {}

@@ -1,6 +1,6 @@
+import i18n from 'i18next'
 import React from 'react'
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
-import { translate } from '../i18n'
 import { spacing } from '../theme'
 import { Button, ButtonProps } from './Button'
 import { Text, TextProps } from './Text'
@@ -104,9 +104,9 @@ interface EmptyStateProps {
 const EmptyStatePresets = {
   generic: {
     imageSource: sadFace,
-    heading: translate('emptyStateComponent.generic.heading'),
-    content: translate('emptyStateComponent.generic.content'),
-    button: translate('emptyStateComponent.generic.button'),
+    heading: i18n.t('emptyStateComponent.generic.heading'),
+    content: i18n.t('emptyStateComponent.generic.content'),
+    button: i18n.t('emptyStateComponent.generic.button'),
   },
 } as const
 

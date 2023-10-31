@@ -23,7 +23,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         <ListItem
           tx="demoCommunityScreen.joinSlackLink"
           leftIcon="slack"
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           onPress={() => openLinkInBrowser('https://community.infinite.red/')}
         />
         <Text
@@ -35,7 +35,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         <ListItem
           tx="demoCommunityScreen.contributeToIgniteLink"
           leftIcon="github"
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           onPress={() => openLinkInBrowser('https://github.com/infinitered/ignite')}
         />
 
@@ -48,7 +48,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         <ListItem
           tx="demoCommunityScreen.reactNativeRadioLink"
           bottomSeparator
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           LeftComponent={
             <View style={$logoContainer}>
               <Image source={reactNativeRadioLogo} style={$logo} />
@@ -59,7 +59,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         <ListItem
           tx="demoCommunityScreen.reactNativeNewsletterLink"
           bottomSeparator
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           LeftComponent={
             <View style={$logoContainer}>
               <Image source={reactNativeNewsletterLogo} style={$logo} />
@@ -70,7 +70,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         <ListItem
           tx="demoCommunityScreen.reactNativeLiveLink"
           bottomSeparator
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           LeftComponent={
             <View style={$logoContainer}>
               <Image source={reactNativeLiveLogo} style={$logo} />
@@ -80,7 +80,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         />
         <ListItem
           tx="demoCommunityScreen.chainReactConferenceLink"
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           LeftComponent={
             <View style={$logoContainer}>
               <Image source={chainReactLogo} style={$logo} />
@@ -93,7 +93,7 @@ export const DemoCommunityScreen: FC<DemoTabScreenProps<'DemoCommunity'>> =
         <ListItem
           tx="demoCommunityScreen.hireUsLink"
           leftIcon="clap"
-          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
+          rightIcon={isRTL() ? 'caretLeft' : 'caretRight'}
           onPress={() => openLinkInBrowser('https://infinite.red/contact')}
         />
       </Screen>

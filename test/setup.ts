@@ -1,9 +1,9 @@
 // we always make sure 'react-native' gets included first
-import * as ReactNative from "react-native"
-import mockFile from "./mockFile"
+import * as ReactNative from 'react-native'
+import mockFile from './mockFile'
 
 // libraries to mock
-jest.doMock("react-native", () => {
+jest.doMock('react-native', () => {
   // Extend ReactNative
   return Object.setPrototypeOf(
     {
@@ -23,14 +23,28 @@ jest.doMock("react-native", () => {
   )
 })
 
-jest.mock("@react-native-async-storage/async-storage", () =>
-  require("@react-native-async-storage/async-storage/jest/async-storage-mock"),
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 )
 
-jest.mock("i18n-js", () => ({
-  currentLocale: () => "en",
-  t: (key: string, params: Record<string, string>) => {
-    return `${key} ${JSON.stringify(params)}`
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate HoC receive the t function as a prop
+  withTranslation: () => (Component) => {
+    Component.defaultProps = { ...Component.defaultProps, t: () => '' }
+    return Component
+  },
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: (str) => str,
+      i18n: {
+        changeLanguage: () => new Promise(() => {}),
+      },
+    }
+  },
+  initReactI18next: {
+    type: '3rdParty',
+    init: () => {},
   },
 }))
 
