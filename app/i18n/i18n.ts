@@ -1,13 +1,13 @@
 import * as Localization from 'expo-localization'
-import { I18nManager } from 'react-native'
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import { I18nManager } from 'react-native'
 
+import ar from './ar'
 // if English isn't your default language, move Translations to the appropriate language file.
 import en, { Translations } from './en'
-import ar from './ar'
-import ko from './ko'
 import fr from './fr'
+import ko from './ko'
 
 const locales = Localization.getLocales() // This method is guaranteed to return at least one array item.
 

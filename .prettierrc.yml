@@ -2,3 +2,25 @@ printWidth: 100
 semi: false
 singleQuote: true
 trailingComma: all
+
+plugins:
+  - '@trivago/prettier-plugin-sort-imports'
+
+importOrderSeparation: true
+importOrderSortSpecifiers: true
+importOrder:
+  - ^(@module-federation|~\w+.*\.scss$|~/i18n$)
+  - ^.*(?!module)\.scss$
+  - <THIRD_PARTY_MODULES>
+  - ^~.*$
+  - ^\.
+
+overrides:
+  - files:
+      - .*rc
+      - '*.json'
+      - .*.json
+    options:
+      parser: json
+      useTabs: true
+      tabWidth: 4

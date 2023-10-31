@@ -1,3 +1,18 @@
+import { useFonts } from 'expo-font'
+import * as Linking from 'expo-linking'
+import 'intl-pluralrules'
+import React from 'react'
+import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
+
+import Config from './config'
+import './i18n'
+import { useInitialRootStore } from './models'
+import { AppNavigator, useNavigationPersistence } from './navigators'
+import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
+import { customFontsToLoad } from './theme'
+import './utils/ignoreWarnings'
+import * as storage from './utils/storage'
+
 /* eslint-disable import/first */
 /**
  * Welcome to the main entry point of the app. In this file, we'll
@@ -16,19 +31,6 @@ if (__DEV__) {
   // to only execute this in development.
   require('./devtools/ReactotronConfig.ts')
 }
-import 'intl-pluralrules';
-import './i18n'
-import './utils/ignoreWarnings'
-import { useFonts } from 'expo-font'
-import React from 'react'
-import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context'
-import * as Linking from 'expo-linking'
-import { useInitialRootStore } from './models'
-import { AppNavigator, useNavigationPersistence } from './navigators'
-import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
-import * as storage from './utils/storage'
-import { customFontsToLoad } from './theme'
-import Config from './config'
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE'
 

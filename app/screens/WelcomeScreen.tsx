@@ -1,15 +1,19 @@
 import { observer } from 'mobx-react-lite'
 import React, { FC } from 'react'
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
+
 import {
   Button, // @demo remove-current-line
   Text,
 } from '../components'
 import { isRTL } from '../i18n'
-import { useStores } from '../models' // @demo remove-current-line
-import { AppStackScreenProps } from '../navigators' // @demo remove-current-line
+import { useStores } from '../models'
+// @demo remove-current-line
+import { AppStackScreenProps } from '../navigators'
+// @demo remove-current-line
 import { colors, spacing } from '../theme'
-import { useHeader } from '../utils/useHeader' // @demo remove-current-line
+import { useHeader } from '../utils/useHeader'
+// @demo remove-current-line
 import { useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle'
 
 const welcomeLogo = require('../../assets/images/logo.png')

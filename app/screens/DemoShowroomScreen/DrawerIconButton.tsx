@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Pressable, PressableProps, ViewStyle } from 'react-native'
 import Animated, {
   interpolate,
@@ -7,8 +8,8 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 import type { SharedValue } from 'react-native-reanimated'
+
 import { colors, spacing } from '../../theme'
-import { useTranslation } from 'react-i18next'
 
 interface DrawerIconButtonProps extends PressableProps {
   open: boolean

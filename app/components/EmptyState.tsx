@@ -1,6 +1,7 @@
 import i18n from 'i18next'
 import React from 'react'
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
+
 import { spacing } from '../theme'
 import { Button, ButtonProps } from './Button'
 import { Text, TextProps } from './Text'

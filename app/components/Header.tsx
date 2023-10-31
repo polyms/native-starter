@@ -8,6 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
+
 import { isRTL } from '../i18n'
 import { colors, spacing } from '../theme'
 import { ExtendedEdge, useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle'

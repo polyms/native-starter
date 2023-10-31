@@ -2,10 +2,11 @@
 import React from 'react'
 import { TextStyle, View, ViewStyle } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+
 import { Icon, ListItem, Text } from '../../../components'
 import { colors, spacing } from '../../../theme'
-import { Demo } from '../DemoShowroomScreen'
 import { DemoDivider } from '../DemoDivider'
+import { Demo } from '../DemoShowroomScreen'
 import { DemoUseCase } from '../DemoUseCase'
 
 const flatListData =

@@ -1,14 +1,14 @@
-const { getDefaultConfig } = require("metro-config")
-const { getDefaultConfig: getDefaultExpoConfig } = require("@expo/metro-config")
+const { getDefaultConfig } = require('metro-config')
+const { getDefaultConfig: getDefaultExpoConfig } = require('@expo/metro-config')
 
 let metroConfig
 let isExpo = false
 try {
-  const Constants = require("expo-constants")
+  const Constants = require('expo-constants')
   // True if the app is running in an `expo build` app or if it's running in Expo Go.
   isExpo =
-    Constants.executionEnvironment === "standalone" ||
-    Constants.executionEnvironment === "storeClient"
+    Constants.executionEnvironment === 'standalone' ||
+    Constants.executionEnvironment === 'storeClient'
 } catch {}
 
 if (isExpo) {
@@ -30,8 +30,8 @@ if (isExpo) {
    *
    * However, it doesn't hurt to have it either.
    */
-  const { makeMetroConfig } = require("@rnx-kit/metro-config")
-  const MetroSymlinksResolver = require("@rnx-kit/metro-resolver-symlinks")
+  const { makeMetroConfig } = require('@rnx-kit/metro-config')
+  const MetroSymlinksResolver = require('@rnx-kit/metro-resolver-symlinks')
 
   metroConfig = (async () => {
     const defaultConfig = await getDefaultConfig()
@@ -45,7 +45,7 @@ if (isExpo) {
          * You can disable it if you're not using pnpm or a monorepo or symlinks.
          */
         resolveRequest: MetroSymlinksResolver(),
-        assetExts: [...defaultConfig.resolver.assetExts, "bin"],
+        assetExts: [...defaultConfig.resolver.assetExts, 'bin'],
       },
     })
   })()

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from 'react-native'
-import { isRTL, TxKeyPath } from '../i18n'
+import { Text as RNText, TextProps as RNTextProps, StyleProp, TextStyle } from 'react-native'
+
+import { TxKeyPath, isRTL } from '../i18n'
 import { colors, typography } from '../theme'
 
 type Sizes = keyof typeof $sizeStyles

@@ -13,13 +13,14 @@ import {
 } from 'react-native'
 import { DrawerLayout, DrawerState, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
+
 import { ListItem, Screen, Text } from '../../components'
 import { isRTL } from '../../i18n'
 import { DemoTabParamList, DemoTabScreenProps } from '../../navigators/DemoNavigator'
 import { colors, spacing } from '../../theme'
 import { useSafeAreaInsetsStyle } from '../../utils/useSafeAreaInsetsStyle'
-import * as Demos from './demos'
 import { DrawerIconButton } from './DrawerIconButton'
+import * as Demos from './demos'
 
 const logo = require('../../../assets/images/logo.png')
 
