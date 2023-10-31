@@ -160,8 +160,10 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<'DemoShowroom'>> =
 
     const $drawerInsets = useSafeAreaInsetsStyle(['top'])
 
+    const rootStyles = { flex: 1 } as ViewStyle
+
     return (
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={rootStyles}>
         <DrawerLayout
           ref={drawerRef}
           drawerWidth={Platform.select({ default: 326, web: Dimensions.get('window').width * 0.3 })}

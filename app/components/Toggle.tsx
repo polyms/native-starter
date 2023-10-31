@@ -478,8 +478,8 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: 'on' | 'off'
 
   const $switchAccessibilityStyle = [
     $switchAccessibility,
-    role === 'off' && { end: '5%' },
-    role === 'on' && { left: '5%' },
+    role === 'off' && { end: '5%' } as TextStyle,
+    role === 'on' && { left: '5%' } as TextStyle,
   ]
 
   const color = (function () {
