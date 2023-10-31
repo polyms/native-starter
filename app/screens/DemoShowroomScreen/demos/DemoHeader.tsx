@@ -1,29 +1,29 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
-import { Header, Icon } from "../../../components"
-import { colors } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from 'react'
+import { TextStyle, View, ViewStyle } from 'react-native'
+import { Header, Icon } from '../../../components'
+import { colors } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
 
 const $rightAlignTitle: TextStyle = {
-  textAlign: "right",
+  textAlign: 'right',
 }
 
 const $customLeftAction: ViewStyle = {
   backgroundColor: colors.error,
   flexGrow: 0,
   flexBasis: 100,
-  height: "100%",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  overflow: "hidden",
+  height: '100%',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  overflow: 'hidden',
 }
 
 const $customTitle: TextStyle = {
-  textDecorationLine: "underline line-through",
-  textDecorationStyle: "dashed",
+  textDecorationLine: 'underline line-through',
+  textDecorationStyle: 'dashed',
   color: colors.error,
   textDecorationColor: colors.error,
 }
@@ -31,9 +31,9 @@ const $customTitle: TextStyle = {
 const $customWhiteTitle: TextStyle = { color: colors.palette.neutral100 }
 
 export const DemoHeader: Demo = {
-  name: "Header",
+  name: 'Header',
   description:
-    "Component that appears on many screens. Will hold navigation buttons and screen title.",
+    'Component that appears on many screens. Will hold navigation buttons and screen title.',
   data: [
     <DemoUseCase
       name="Action Icons"

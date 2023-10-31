@@ -1,7 +1,7 @@
-import React, { ErrorInfo } from "react"
-import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text } from "../../components"
-import { colors, spacing } from "../../theme"
+import React, { ErrorInfo } from 'react'
+import { ScrollView, TextStyle, View, ViewStyle } from 'react-native'
+import { Button, Icon, Screen, Text } from '../../components'
+import { colors, spacing } from '../../theme'
 
 export interface ErrorDetailsProps {
   error: Error
@@ -13,7 +13,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
   return (
     <Screen
       preset="fixed"
-      safeAreaEdges={["top", "bottom"]}
+      safeAreaEdges={['top', 'bottom']}
       contentContainerStyle={$contentContainer}
     >
       <View style={$topSection}>
@@ -42,7 +42,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
 }
 
 const $contentContainer: ViewStyle = {
-  alignItems: "center",
+  alignItems: 'center',
   paddingHorizontal: spacing.lg,
   paddingTop: spacing.xl,
   flex: 1,
@@ -50,7 +50,7 @@ const $contentContainer: ViewStyle = {
 
 const $topSection: ViewStyle = {
   flex: 1,
-  alignItems: "center",
+  alignItems: 'center',
 }
 
 const $heading: TextStyle = {

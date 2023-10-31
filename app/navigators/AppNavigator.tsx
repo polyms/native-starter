@@ -9,17 +9,17 @@ import {
   DefaultTheme,
   NavigationContainer,
   NavigatorScreenParams, // @demo remove-current-line
-} from "@react-navigation/native"
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
-import { observer } from "mobx-react-lite"
-import React from "react"
-import { useColorScheme } from "react-native"
-import * as Screens from "app/screens"
-import Config from "../config"
-import { useStores } from "../models" // @demo remove-current-line
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
-import { colors } from "app/theme"
+} from '@react-navigation/native'
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import { useColorScheme } from 'react-native'
+import * as Screens from 'app/screens'
+import Config from '../config'
+import { useStores } from '../models' // @demo remove-current-line
+import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
+import { navigationRef, useBackButtonHandler } from './navigationUtilities'
+import { colors } from 'app/theme'
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -66,7 +66,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"} // @demo remove-current-line
+      initialRouteName={isAuthenticated ? 'Welcome' : 'Login'} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
       {isAuthenticated ? (
@@ -99,7 +99,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   return (
     <NavigationContainer
       ref={navigationRef}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
       {...props}
     >
       <AppStack />

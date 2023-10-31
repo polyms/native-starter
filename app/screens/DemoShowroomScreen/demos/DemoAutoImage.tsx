@@ -1,30 +1,30 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import React from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { AutoImage, Text } from "../../../components"
-import { colors, spacing } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from 'react'
+import { Image, ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
+import { AutoImage, Text } from '../../../components'
+import { colors, spacing } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
 
 const $imageContainer: ViewStyle = {
-  alignItems: "center",
+  alignItems: 'center',
 }
 
 const $aspectRatioDescription: TextStyle = {
-  textAlign: "center",
-  width: "100%",
+  textAlign: 'center',
+  width: '100%',
   marginTop: spacing.xs,
 }
 
 const $aspectRatioWidthExampleContainer: ViewStyle = {
-  flexDirection: "row",
-  justifyContent: "space-between",
+  flexDirection: 'row',
+  justifyContent: 'space-between',
 }
 
 const $aspectRatioHeightExampleContainer: ViewStyle = {
-  alignItems: "stretch",
-  justifyContent: "space-between",
+  alignItems: 'stretch',
+  justifyContent: 'space-between',
   height: 130,
 }
 
@@ -36,14 +36,14 @@ const $aspectRatioBox: ViewStyle & ImageStyle = {
 }
 
 export const DemoAutoImage: Demo = {
-  name: "AutoImage",
-  description: "An Image component that automatically sizes a remote or data-uri image.",
+  name: 'AutoImage',
+  description: 'An Image component that automatically sizes a remote or data-uri image.',
   data: [
     <DemoUseCase name="Remote URI">
       <View style={$imageContainer}>
         <AutoImage
           source={{
-            uri: "https://user-images.githubusercontent.com/1775841/184508739-f90d0ce5-7219-42fd-a91f-3382d016eae0.png",
+            uri: 'https://user-images.githubusercontent.com/1775841/184508739-f90d0ce5-7219-42fd-a91f-3382d016eae0.png',
           }}
         />
       </View>
@@ -69,19 +69,19 @@ export const DemoAutoImage: Demo = {
           text="<View />"
           size="xxs"
           weight="bold"
-          style={{ flexBasis: "33.3333%", color: colors.palette.secondary400 }}
+          style={{ flexBasis: '33.3333%', color: colors.palette.secondary400 }}
         />
         <Text
           text="<Image />"
           size="xxs"
           weight="bold"
-          style={{ flexBasis: "33.3333%", textAlign: "center", color: colors.palette.secondary400 }}
+          style={{ flexBasis: '33.3333%', textAlign: 'center', color: colors.palette.secondary400 }}
         />
         <Text
           text="<AutoImage />"
           size="xxs"
           weight="bold"
-          style={{ flexBasis: "33.3333%", textAlign: "right", color: colors.palette.secondary400 }}
+          style={{ flexBasis: '33.3333%', textAlign: 'right', color: colors.palette.secondary400 }}
         />
       </View>
 
@@ -91,7 +91,7 @@ export const DemoAutoImage: Demo = {
         <View style={[$aspectRatioBox, { width: 60 }]} />
         <Image
           source={{
-            uri: "https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png",
+            uri: 'https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png',
           }}
           style={[$aspectRatioBox, { width: 60 }]}
           resizeMode="contain"
@@ -100,7 +100,7 @@ export const DemoAutoImage: Demo = {
           maxWidth={60}
           style={$aspectRatioBox}
           source={{
-            uri: "https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png",
+            uri: 'https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png',
           }}
         />
       </View>
@@ -111,7 +111,7 @@ export const DemoAutoImage: Demo = {
 
       <DemoDivider size={40} />
 
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: 'row' }}>
         <View style={$aspectRatioHeightExampleContainer}>
           <Text
             text="<View />"
@@ -137,16 +137,16 @@ export const DemoAutoImage: Demo = {
           <View style={[$aspectRatioBox, { height: 32 }]} />
           <Image
             source={{
-              uri: "https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png",
+              uri: 'https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png',
             }}
             style={[$aspectRatioBox, { height: 32 }]}
             resizeMode="contain"
           />
           <AutoImage
             maxHeight={32}
-            style={[$aspectRatioBox, { alignSelf: "center" }]}
+            style={[$aspectRatioBox, { alignSelf: 'center' }]}
             source={{
-              uri: "https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png",
+              uri: 'https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png',
             }}
           />
         </View>
@@ -163,19 +163,19 @@ export const DemoAutoImage: Demo = {
           text="<View />"
           size="xxs"
           weight="bold"
-          style={{ flexBasis: "33.3333%", color: colors.palette.secondary400 }}
+          style={{ flexBasis: '33.3333%', color: colors.palette.secondary400 }}
         />
         <Text
           text="<Image />"
           size="xxs"
           weight="bold"
-          style={{ flexBasis: "33.3333%", textAlign: "center", color: colors.palette.secondary400 }}
+          style={{ flexBasis: '33.3333%', textAlign: 'center', color: colors.palette.secondary400 }}
         />
         <Text
           text="<AutoImage />"
           size="xxs"
           weight="bold"
-          style={{ flexBasis: "33.3333%", textAlign: "right", color: colors.palette.secondary400 }}
+          style={{ flexBasis: '33.3333%', textAlign: 'right', color: colors.palette.secondary400 }}
         />
       </View>
 
@@ -185,7 +185,7 @@ export const DemoAutoImage: Demo = {
         <View style={[$aspectRatioBox, { width: 60, height: 60 }]} />
         <Image
           source={{
-            uri: "https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png",
+            uri: 'https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png',
           }}
           style={[$aspectRatioBox, { width: 60, height: 60 }]}
           resizeMode="contain"
@@ -195,7 +195,7 @@ export const DemoAutoImage: Demo = {
           maxHeight={60}
           style={$aspectRatioBox}
           source={{
-            uri: "https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png",
+            uri: 'https://user-images.githubusercontent.com/1775841/188244137-a35ab1b9-658d-4701-b1dd-7caa51173fa9.png',
           }}
         />
       </View>

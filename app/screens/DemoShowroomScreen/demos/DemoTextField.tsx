@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-key */
-import React from "react"
-import { TextStyle, ViewStyle } from "react-native"
-import { Icon, TextField } from "../../../components"
-import { colors, spacing } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from 'react'
+import { TextStyle, ViewStyle } from 'react-native'
+import { Icon, TextField } from '../../../components'
+import { colors, spacing } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
 
 const $customInputStyle: TextStyle = {
   backgroundColor: colors.error,
@@ -31,19 +31,19 @@ const $customInputWithAbsoluteAccessoriesStyle: ViewStyle = {
 
 const $customLeftAccessoryStyle: ViewStyle = {
   backgroundColor: colors.error,
-  position: "absolute",
+  position: 'absolute',
   left: 0,
 }
 
 const $customRightAccessoryStyle: ViewStyle = {
   backgroundColor: colors.error,
-  position: "absolute",
+  position: 'absolute',
   right: 0,
 }
 
 export const DemoTextField: Demo = {
-  name: "TextField",
-  description: "TextField component allows for the entering and editing of text.",
+  name: 'TextField',
+  description: 'TextField component allows for the entering and editing of text.',
   data: [
     <DemoUseCase
       name="Statuses"
@@ -91,11 +91,11 @@ export const DemoTextField: Demo = {
 
       <TextField
         labelTx="demoShowroomScreen.demoViaSpecifiedTxProp"
-        labelTxOptions={{ prop: "label" }}
+        labelTxOptions={{ prop: 'label' }}
         helperTx="demoShowroomScreen.demoViaSpecifiedTxProp"
-        helperTxOptions={{ prop: "helper" }}
+        helperTxOptions={{ prop: 'helper' }}
         placeholderTx="demoShowroomScreen.demoViaSpecifiedTxProp"
-        placeholderTxOptions={{ prop: "placeholder" }}
+        placeholderTxOptions={{ prop: 'placeholder' }}
       />
 
       <DemoDivider size={24} />

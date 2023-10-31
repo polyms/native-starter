@@ -1,14 +1,14 @@
-import React, { useEffect } from "react"
-import { Pressable, PressableProps, ViewStyle } from "react-native"
+import React, { useEffect } from 'react'
+import { Pressable, PressableProps, ViewStyle } from 'react-native'
 import Animated, {
   interpolate,
   interpolateColor,
   useAnimatedStyle,
   withSpring,
-} from "react-native-reanimated"
-import type { SharedValue } from "react-native-reanimated"
-import { isRTL } from "../../i18n"
-import { colors, spacing } from "../../theme"
+} from 'react-native-reanimated'
+import type { SharedValue } from 'react-native-reanimated'
+import { isRTL } from '../../i18n'
+import { colors, spacing } from '../../theme'
 
 interface DrawerIconButtonProps extends PressableProps {
   open: boolean
@@ -88,9 +88,9 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
 const barHeight = 2
 
 const $container: ViewStyle = {
-  alignItems: "center",
+  alignItems: 'center',
   height: 56,
-  justifyContent: "center",
+  justifyContent: 'center',
   width: 56,
 }
 

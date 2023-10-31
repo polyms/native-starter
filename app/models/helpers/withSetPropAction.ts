@@ -1,4 +1,4 @@
-import { IStateTreeNode, SnapshotIn } from "mobx-state-tree"
+import { IStateTreeNode, SnapshotIn } from 'mobx-state-tree'
 
 /**
  * If you include this in your model in an action() block just under your props,

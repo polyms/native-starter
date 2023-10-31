@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react"
+import React, { ComponentType } from 'react'
 import {
   Pressable,
   PressableProps,
@@ -6,9 +6,9 @@ import {
   StyleProp,
   TextStyle,
   ViewStyle,
-} from "react-native"
-import { colors, spacing, typography } from "../theme"
-import { Text, TextProps } from "./Text"
+} from 'react-native'
+import { colors, spacing, typography } from '../theme'
+import { Text, TextProps } from './Text'
 
 type Presets = keyof typeof $viewPresets
 
@@ -21,16 +21,16 @@ export interface ButtonProps extends PressableProps {
   /**
    * Text which is looked up via i18n.
    */
-  tx?: TextProps["tx"]
+  tx?: TextProps['tx']
   /**
    * The text to display if not using `tx` or nested components.
    */
-  text?: TextProps["text"]
+  text?: TextProps['text']
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  txOptions?: TextProps["txOptions"]
+  txOptions?: TextProps['txOptions']
   /**
    * An optional style override useful for padding & margin.
    */
@@ -88,7 +88,7 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props
 
-  const preset: Presets = $viewPresets[props.preset] ? props.preset : "default"
+  const preset: Presets = $viewPresets[props.preset] ? props.preset : 'default'
   function $viewStyle({ pressed }) {
     return [
       $viewPresets[preset],
@@ -126,19 +126,19 @@ export function Button(props: ButtonProps) {
 const $baseViewStyle: ViewStyle = {
   minHeight: 56,
   borderRadius: 4,
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "row",
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
   paddingVertical: spacing.sm,
   paddingHorizontal: spacing.sm,
-  overflow: "hidden",
+  overflow: 'hidden',
 }
 
 const $baseTextStyle: TextStyle = {
   fontSize: 16,
   lineHeight: 20,
   fontFamily: typography.primary.medium,
-  textAlign: "center",
+  textAlign: 'center',
   flexShrink: 1,
   flexGrow: 0,
   zIndex: 2,

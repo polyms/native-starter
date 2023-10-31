@@ -1,8 +1,8 @@
-import i18n from "i18n-js"
-import React from "react"
-import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
-import { isRTL, translate, TxKeyPath } from "../i18n"
-import { colors, typography } from "../theme"
+import { TranslateOptions } from 'i18n-js'
+import React from 'react'
+import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from 'react-native'
+import { isRTL, translate, TxKeyPath } from '../i18n'
+import { colors, typography } from '../theme'
 
 type Sizes = keyof typeof $sizeStyles
 type Weights = keyof typeof typography.primary
@@ -21,7 +21,7 @@ export interface TextProps extends RNTextProps {
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  txOptions?: i18n.TranslateOptions
+  txOptions?: TranslateOptions
   /**
    * An optional style override useful for padding & margin.
    */
@@ -56,7 +56,7 @@ export function Text(props: TextProps) {
   const i18nText = tx && translate(tx, txOptions)
   const content = i18nText || text || children
 
-  const preset: Presets = $presets[props.preset] ? props.preset : "default"
+  const preset: Presets = $presets[props.preset] ? props.preset : 'default'
   const $styles = [
     $rtlStyle,
     $presets[preset],
@@ -73,13 +73,13 @@ export function Text(props: TextProps) {
 }
 
 const $sizeStyles = {
-  xxl: { fontSize: 36, lineHeight: 44 } satisfies TextStyle,
-  xl: { fontSize: 24, lineHeight: 34 } satisfies TextStyle,
-  lg: { fontSize: 20, lineHeight: 32 } satisfies TextStyle,
-  md: { fontSize: 18, lineHeight: 26 } satisfies TextStyle,
-  sm: { fontSize: 16, lineHeight: 24 } satisfies TextStyle,
-  xs: { fontSize: 14, lineHeight: 21 } satisfies TextStyle,
-  xxs: { fontSize: 12, lineHeight: 18 } satisfies TextStyle,
+  xxl: { fontSize: 36, lineHeight: 44 }, // satisfies TextStyle
+  xl: { fontSize: 24, lineHeight: 34 }, // satisfies TextStyle
+  lg: { fontSize: 20, lineHeight: 32 }, // satisfies TextStyle
+  md: { fontSize: 18, lineHeight: 26 }, // satisfies TextStyle
+  sm: { fontSize: 16, lineHeight: 24 }, // satisfies TextStyle
+  xs: { fontSize: 14, lineHeight: 21 }, // satisfies TextStyle
+  xxs: { fontSize: 12, lineHeight: 18 }, // satisfies TextStyle
 }
 
 const $fontWeightStyles = Object.entries(typography.primary).reduce((acc, [weight, fontFamily]) => {
@@ -106,4 +106,4 @@ const $presets = {
   formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
 }
 
-const $rtlStyle: TextStyle = isRTL ? { writingDirection: "rtl" } : {}
+const $rtlStyle: TextStyle = isRTL ? { writingDirection: 'rtl' } : {}

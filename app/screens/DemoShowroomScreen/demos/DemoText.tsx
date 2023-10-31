@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-key */
-import React from "react"
-import { Text } from "../../../components"
-import { colors } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from 'react'
+import { Text } from '../../../components'
+import { colors } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
 
 export const DemoText: Demo = {
-  name: "Text",
+  name: 'Text',
   description:
-    "For your text displaying needs. This component is a HOC over the built-in React Native one.",
+    'For your text displaying needs. This component is a HOC over the built-in React Native one.',
   data: [
     <DemoUseCase name="Presets" description="There are a few presets that are preconfigured.">
       <Text>
@@ -129,8 +129,8 @@ export const DemoText: Demo = {
         <Text
           /* eslint-disable react-native/no-inline-styles */
           style={{
-            textDecorationLine: "underline line-through",
-            textDecorationStyle: "dashed",
+            textDecorationLine: 'underline line-through',
+            textDecorationStyle: 'dashed',
             color: colors.error,
             textDecorationColor: colors.error,
           }}

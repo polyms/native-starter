@@ -1,10 +1,10 @@
-import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { api } from "../services/api"
-import { Episode, EpisodeModel } from "./Episode"
-import { withSetPropAction } from "./helpers/withSetPropAction"
+import { Instance, SnapshotOut, types } from 'mobx-state-tree'
+import { api } from '../services/api'
+import { Episode, EpisodeModel } from './Episode'
+import { withSetPropAction } from './helpers/withSetPropAction'
 
 export const EpisodeStoreModel = types
-  .model("EpisodeStore")
+  .model('EpisodeStore')
   .props({
     episodes: types.array(EpisodeModel),
     favorites: types.array(types.reference(EpisodeModel)),
@@ -14,8 +14,8 @@ export const EpisodeStoreModel = types
   .actions((store) => ({
     async fetchEpisodes() {
       const response = await api.getEpisodes()
-      if (response.kind === "ok") {
-        store.setProp("episodes", response.episodes)
+      if (response.kind === 'ok') {
+        store.setProp('episodes', response.episodes)
       } else {
         console.tron.error(`Error fetching episodes: ${JSON.stringify(response)}`, [])
       }

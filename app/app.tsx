@@ -14,39 +14,39 @@ if (__DEV__) {
   // Load Reactotron configuration in development. We don't want to
   // include this in our production bundle, so we are using `if (__DEV__)`
   // to only execute this in development.
-  require("./devtools/ReactotronConfig.ts")
+  require('./devtools/ReactotronConfig.ts')
 }
-import "./i18n"
-import "./utils/ignoreWarnings"
-import { useFonts } from "expo-font"
-import React from "react"
-import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
-import * as Linking from "expo-linking"
-import { useInitialRootStore } from "./models"
-import { AppNavigator, useNavigationPersistence } from "./navigators"
-import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
-import * as storage from "./utils/storage"
-import { customFontsToLoad } from "./theme"
-import Config from "./config"
+// import "./i18n"
+import './utils/ignoreWarnings'
+import { useFonts } from 'expo-font'
+import React from 'react'
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context'
+import * as Linking from 'expo-linking'
+import { useInitialRootStore } from './models'
+import { AppNavigator, useNavigationPersistence } from './navigators'
+import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
+import * as storage from './utils/storage'
+import { customFontsToLoad } from './theme'
+import Config from './config'
 
-export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
+export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE'
 
 // Web linking configuration
-const prefix = Linking.createURL("/")
+const prefix = Linking.createURL('/')
 const config = {
   screens: {
     Login: {
-      path: "",
+      path: '',
     },
-    Welcome: "welcome",
+    Welcome: 'welcome',
     Demo: {
       screens: {
         DemoShowroom: {
-          path: "showroom/:queryIndex?/:itemIndex?",
+          path: 'showroom/:queryIndex?/:itemIndex?',
         },
-        DemoDebug: "debug",
-        DemoPodcastList: "podcast",
-        DemoCommunity: "community",
+        DemoDebug: 'debug',
+        DemoPodcastList: 'podcast',
+        DemoCommunity: 'community',
       },
     },
   },

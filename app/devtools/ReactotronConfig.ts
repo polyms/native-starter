@@ -3,20 +3,20 @@
  * free desktop app for inspecting and debugging your React Native app.
  * @see https://github.com/infinitered/reactotron
  */
-import { Platform } from "react-native"
+import { Platform } from 'react-native'
 
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { ArgType } from "reactotron-core-client"
-import { mst } from "reactotron-mst"
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ArgType } from 'reactotron-core-client'
+import { mst } from 'reactotron-mst'
 
-import { clear } from "app/utils/storage"
-import { goBack, resetRoot, navigate } from "app/navigators/navigationUtilities"
+import { clear } from 'app/utils/storage'
+import { goBack, resetRoot, navigate } from 'app/navigators/navigationUtilities'
 
-import { Reactotron } from "./ReactotronClient"
+import { Reactotron } from './ReactotronClient'
 
 Reactotron.configure({
-  name: require("../../package.json").name,
-  host: "localhost",
+  name: require('../../package.json').name,
+  host: 'localhost',
   onConnect: () => {
     /** since this file gets hot reloaded, let's clear the past logs every time we connect */
     Reactotron.clear()
@@ -30,7 +30,7 @@ Reactotron.use(
   }),
 )
 
-if (Platform.OS !== "web") {
+if (Platform.OS !== 'web') {
   Reactotron.setAsyncStorageHandler(AsyncStorage)
   Reactotron.useReactNative()
 }
@@ -47,52 +47,52 @@ if (Platform.OS !== "web") {
  * or else your custom commands won't be registered correctly.
  */
 Reactotron.onCustomCommand({
-  title: "Reset Root Store",
-  description: "Resets the MST store",
-  command: "resetStore",
+  title: 'Reset Root Store',
+  description: 'Resets the MST store',
+  command: 'resetStore',
   handler: () => {
-    Reactotron.log("resetting store")
+    Reactotron.log('resetting store')
     clear()
   },
 })
 
 Reactotron.onCustomCommand({
-  title: "Reset Navigation State",
-  description: "Resets the navigation state",
-  command: "resetNavigation",
+  title: 'Reset Navigation State',
+  description: 'Resets the navigation state',
+  command: 'resetNavigation',
   handler: () => {
-    Reactotron.log("resetting navigation state")
+    Reactotron.log('resetting navigation state')
     resetRoot({ index: 0, routes: [] })
   },
 })
 
 Reactotron.onCustomCommand({
-  command: "navigateTo",
+  command: 'navigateTo',
   handler: (args) => {
     const { route } = args
     if (route) {
       Reactotron.log(`Navigating to: ${route}`)
       navigate(route)
     } else {
-      Reactotron.log("Could not navigate. No route provided.")
+      Reactotron.log('Could not navigate. No route provided.')
     }
   },
-  title: "Navigate To Screen",
-  description: "Navigates to a screen by name.",
+  title: 'Navigate To Screen',
+  description: 'Navigates to a screen by name.',
   args: [
     {
-      name: "route",
+      name: 'route',
       type: ArgType.String,
     },
   ],
 })
 
 Reactotron.onCustomCommand({
-  title: "Go Back",
-  description: "Goes back",
-  command: "goBack",
+  title: 'Go Back',
+  description: 'Goes back',
+  command: 'goBack',
   handler: () => {
-    Reactotron.log("Going back")
+    Reactotron.log('Going back')
     goBack()
   },
 })

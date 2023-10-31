@@ -1,26 +1,26 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
-import { Icon, ListItem, Text } from "../../../components"
-import { colors, spacing } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import React from 'react'
+import { TextStyle, View, ViewStyle } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+import { Icon, ListItem, Text } from '../../../components'
+import { colors, spacing } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
 
 const flatListData =
   `Tempor Id Ea Aliqua Pariatur Aliquip. Irure Minim Voluptate Consectetur Consequat Sint Esse Proident Irure. Nostrud Elit Veniam Nostrud Excepteur Minim Deserunt Quis Dolore Velit Nulla Irure Voluptate Tempor. Occaecat Amet Laboris Nostrud Qui Do Quis Lorem Ex Elit Fugiat Deserunt. In Pariatur Excepteur Exercitation Ex Incididunt Qui Mollit Dolor Sit Non. Culpa Officia Minim Cillum Exercitation Voluptate Proident Laboris Et Est Reprehenderit Quis Pariatur Nisi`
-    .split(".")
+    .split('.')
     .map((item) => item.trim())
 
 const $customLeft: ViewStyle = {
   backgroundColor: colors.error,
   flexGrow: 0,
   flexBasis: 60,
-  height: "100%",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  overflow: "hidden",
+  height: '100%',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  overflow: 'hidden',
 }
 
 const $customTextStyle: TextStyle = {
@@ -40,12 +40,12 @@ const $flatListStyle: ViewStyle = {
   paddingHorizontal: spacing.xs,
   backgroundColor: colors.palette.neutral200,
   flex: 1,
-  overflow: "scroll",
+  overflow: 'scroll',
 }
 
 export const DemoListItem: Demo = {
-  name: "ListItem",
-  description: "A styled row component that can be used in FlatList, SectionList, or by itself.",
+  name: 'ListItem',
+  description: 'A styled row component that can be used in FlatList, SectionList, or by itself.',
   data: [
     <DemoUseCase name="Height" description="The row can be different heights.">
       <ListItem topSeparator>Default height (56px)</ListItem>

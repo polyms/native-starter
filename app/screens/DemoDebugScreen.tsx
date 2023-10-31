@@ -1,30 +1,30 @@
-import React, { FC } from "react"
-import * as Application from "expo-application"
-import { Linking, Platform, TextStyle, View, ViewStyle } from "react-native"
-import { Button, ListItem, Screen, Text } from "../components"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { colors, spacing } from "../theme"
-import { isRTL } from "../i18n"
-import { useStores } from "../models"
+import React, { FC } from 'react'
+import * as Application from 'expo-application'
+import { Linking, Platform, TextStyle, View, ViewStyle } from 'react-native'
+import { Button, ListItem, Screen, Text } from '../components'
+import { DemoTabScreenProps } from '../navigators/DemoNavigator'
+import { colors, spacing } from '../theme'
+import { isRTL } from '../i18n'
+import { useStores } from '../models'
 
 function openLinkInBrowser(url: string) {
   Linking.canOpenURL(url).then((canOpen) => canOpen && Linking.openURL(url))
 }
 
-export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function DemoDebugScreen(
+export const DemoDebugScreen: FC<DemoTabScreenProps<'DemoDebug'>> = function DemoDebugScreen(
   _props,
 ) {
   const {
     authenticationStore: { logout },
   } = useStores()
 
-  const usingHermes = typeof HermesInternal === "object" && HermesInternal !== null
+  const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
   const demoReactotron = React.useMemo(
     () => async () => {
       if (__DEV__) {
         console.tron.display({
-          name: "DISPLAY",
+          name: 'DISPLAY',
           value: {
             appId: Application.applicationId,
             appName: Application.applicationName,
@@ -40,11 +40,11 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
   )
 
   return (
-    <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
+    <Screen preset="scroll" safeAreaEdges={['top']} contentContainerStyle={$container}>
       <Text
         style={$reportBugsLink}
         tx="demoDebugScreen.reportBugs"
-        onPress={() => openLinkInBrowser("https://github.com/infinitered/ignite/issues")}
+        onPress={() => openLinkInBrowser('https://github.com/infinitered/ignite/issues')}
       />
       <Text style={$title} preset="heading" tx="demoDebugScreen.title" />
       <View style={$itemsContainer}>
@@ -113,7 +113,7 @@ const $title: TextStyle = {
 const $reportBugsLink: TextStyle = {
   color: colors.tint,
   marginBottom: spacing.lg,
-  alignSelf: isRTL ? "flex-start" : "flex-end",
+  alignSelf: isRTL ? 'flex-start' : 'flex-end',
 }
 
 const $item: ViewStyle = {

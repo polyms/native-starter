@@ -9,14 +9,14 @@ import {
   ApiResponse, // @demo remove-current-line
   ApisauceInstance,
   create,
-} from "apisauce"
-import Config from "../../config"
-import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem" // @demo remove-current-line
+} from 'apisauce'
+import Config from '../../config'
+import { GeneralApiProblem, getGeneralApiProblem } from './apiProblem' // @demo remove-current-line
 import type {
   ApiConfig,
   ApiFeedResponse, // @demo remove-current-line
-} from "./api.types"
-import type { EpisodeSnapshotIn } from "../../models/Episode" // @demo remove-current-line
+} from './api.types'
+import type { EpisodeSnapshotIn } from '../../models/Episode' // @demo remove-current-line
 
 /**
  * Configuring the apisauce instance.
@@ -43,7 +43,7 @@ export class Api {
       baseURL: this.config.url,
       timeout: this.config.timeout,
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
       },
     })
   }
@@ -52,7 +52,7 @@ export class Api {
   /**
    * Gets a list of recent React Native Radio episodes.
    */
-  async getEpisodes(): Promise<{ kind: "ok"; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
+  async getEpisodes(): Promise<{ kind: 'ok'; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
     // make the api call
     const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(
       `api.json?rss_url=https%3A%2F%2Ffeeds.simplecast.com%2FhEI_f9Dx`,
@@ -73,12 +73,12 @@ export class Api {
         ...raw,
       }))
 
-      return { kind: "ok", episodes }
+      return { kind: 'ok', episodes }
     } catch (e) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${e.message}\n${response.data}`, e.stack)
       }
-      return { kind: "bad-data" }
+      return { kind: 'bad-data' }
     }
   }
   // @demo remove-block-end

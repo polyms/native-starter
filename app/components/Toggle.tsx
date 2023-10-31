@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, useMemo } from "react"
+import React, { ComponentType, FC, useMemo } from 'react'
 import {
   GestureResponderEvent,
   Image,
@@ -11,15 +11,15 @@ import {
   TouchableOpacityProps,
   View,
   ViewStyle,
-} from "react-native"
-import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated"
-import { colors, spacing } from "../theme"
-import { iconRegistry, IconTypes } from "./Icon"
-import { Text, TextProps } from "./Text"
+} from 'react-native'
+import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import { colors, spacing } from '../theme'
+import { iconRegistry, IconTypes } from './Icon'
+import { Text, TextProps } from './Text'
 
-type Variants = "checkbox" | "switch" | "radio"
+type Variants = 'checkbox' | 'switch' | 'radio'
 
-interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
+interface BaseToggleProps extends Omit<TouchableOpacityProps, 'style'> {
   /**
    * The variant of the toggle.
    * Options: "checkbox", "switch", "radio"
@@ -29,11 +29,11 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
   /**
    * A style modifier for different input states.
    */
-  status?: "error" | "disabled"
+  status?: 'error' | 'disabled'
   /**
    * If false, input is not editable. The default value is true.
    */
-  editable?: TextInputProps["editable"]
+  editable?: TextInputProps['editable']
   /**
    * The value of the field. If true the component will be turned on.
    */
@@ -41,7 +41,7 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
   /**
    * Invoked with the new value when the value changes.
    */
-  onValueChange?: SwitchProps["onValueChange"]
+  onValueChange?: SwitchProps['onValueChange']
   /**
    * Style overrides for the container
    */
@@ -64,20 +64,20 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
    * The position of the label relative to the action component.
    * Default: right
    */
-  labelPosition?: "left" | "right"
+  labelPosition?: 'left' | 'right'
   /**
    * The label text to display if not using `labelTx`.
    */
-  label?: TextProps["text"]
+  label?: TextProps['text']
   /**
    * Label text which is looked up via i18n.
    */
-  labelTx?: TextProps["tx"]
+  labelTx?: TextProps['tx']
   /**
    * Optional label options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  labelTxOptions?: TextProps["txOptions"]
+  labelTxOptions?: TextProps['txOptions']
   /**
    * Style overrides for label text.
    */
@@ -89,16 +89,16 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
   /**
    * The helper text to display if not using `helperTx`.
    */
-  helper?: TextProps["text"]
+  helper?: TextProps['text']
   /**
    * Helper text which is looked up via i18n.
    */
-  helperTx?: TextProps["tx"]
+  helperTx?: TextProps['tx']
   /**
    * Optional helper options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  helperTxOptions?: TextProps["txOptions"]
+  helperTxOptions?: TextProps['txOptions']
   /**
    * Pass any additional props directly to the helper Text component.
    */
@@ -106,7 +106,7 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
 }
 
 interface CheckboxToggleProps extends BaseToggleProps {
-  variant?: "checkbox"
+  variant?: 'checkbox'
   /**
    * Optional style prop that affects the Image component.
    */
@@ -118,7 +118,7 @@ interface CheckboxToggleProps extends BaseToggleProps {
 }
 
 interface RadioToggleProps extends BaseToggleProps {
-  variant?: "radio"
+  variant?: 'radio'
   /**
    * Optional style prop that affects the dot View.
    */
@@ -126,29 +126,29 @@ interface RadioToggleProps extends BaseToggleProps {
 }
 
 interface SwitchToggleProps extends BaseToggleProps {
-  variant?: "switch"
+  variant?: 'switch'
   /**
    * Switch-only prop that adds a text/icon label for on/off states.
    */
-  switchAccessibilityMode?: "text" | "icon"
+  switchAccessibilityMode?: 'text' | 'icon'
   /**
    * Optional style prop that affects the knob View.
    * Note: `width` and `height` rules should be points (numbers), not percentages.
    */
-  inputDetailStyle?: Omit<ViewStyle, "width" | "height"> & { width?: number; height?: number }
+  inputDetailStyle?: Omit<ViewStyle, 'width' | 'height'> & { width?: number; height?: number }
 }
 
 export type ToggleProps = CheckboxToggleProps | RadioToggleProps | SwitchToggleProps
 
 interface ToggleInputProps {
   on: boolean
-  status: BaseToggleProps["status"]
+  status: BaseToggleProps['status']
   disabled: boolean
   outerStyle: ViewStyle
   innerStyle: ViewStyle
-  detailStyle: Omit<ViewStyle & ImageStyle, "overflow">
-  switchAccessibilityMode?: SwitchToggleProps["switchAccessibilityMode"]
-  checkboxIcon?: CheckboxToggleProps["checkboxIcon"]
+  detailStyle: Omit<ViewStyle & ImageStyle, 'overflow'>
+  switchAccessibilityMode?: SwitchToggleProps['switchAccessibilityMode']
+  checkboxIcon?: CheckboxToggleProps['checkboxIcon']
 }
 
 /**
@@ -159,13 +159,13 @@ interface ToggleInputProps {
  */
 export function Toggle(props: ToggleProps) {
   const {
-    variant = "checkbox",
+    variant = 'checkbox',
     editable = true,
     status,
     value,
     onPress,
     onValueChange,
-    labelPosition = "right",
+    labelPosition = 'right',
     helper,
     helperTx,
     helperTxOptions,
@@ -178,7 +178,7 @@ export function Toggle(props: ToggleProps) {
   const { switchAccessibilityMode } = props as SwitchToggleProps
   const { checkboxIcon } = props as CheckboxToggleProps
 
-  const disabled = editable === false || status === "disabled" || props.disabled
+  const disabled = editable === false || status === 'disabled' || props.disabled
 
   const Wrapper = useMemo<ComponentType<TouchableOpacityProps>>(
     () => (disabled ? View : TouchableOpacity),
@@ -190,7 +190,7 @@ export function Toggle(props: ToggleProps) {
   const $inputWrapperStyles = [$inputWrapper, $inputWrapperStyleOverride]
   const $helperStyles = [
     $helper,
-    status === "error" && { color: colors.error },
+    status === 'error' && { color: colors.error },
     HelperTextProps?.style,
   ]
 
@@ -210,7 +210,7 @@ export function Toggle(props: ToggleProps) {
       onPress={handlePress}
     >
       <View style={$inputWrapperStyles}>
-        {labelPosition === "left" && <FieldLabel {...props} labelPosition={labelPosition} />}
+        {labelPosition === 'left' && <FieldLabel {...props} labelPosition={labelPosition} />}
 
         <ToggleInput
           on={value}
@@ -223,7 +223,7 @@ export function Toggle(props: ToggleProps) {
           checkboxIcon={checkboxIcon}
         />
 
-        {labelPosition === "right" && <FieldLabel {...props} labelPosition={labelPosition} />}
+        {labelPosition === 'right' && <FieldLabel {...props} labelPosition={labelPosition} />}
       </View>
 
       {!!(helper || helperTx) && (
@@ -259,26 +259,26 @@ function Checkbox(props: ToggleInputProps) {
 
   const offBackgroundColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.errorBackground,
+    status === 'error' && colors.errorBackground,
     colors.palette.neutral200,
   ].filter(Boolean)[0]
 
   const outerBorderColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.error,
+    status === 'error' && colors.error,
     !on && colors.palette.neutral800,
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
     disabled && colors.transparent,
-    status === "error" && colors.errorBackground,
+    status === 'error' && colors.errorBackground,
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
   const iconTintColor = [
     disabled && colors.palette.neutral600,
-    status === "error" && colors.error,
+    status === 'error' && colors.error,
     colors.palette.accent100,
   ].filter(Boolean)[0]
 
@@ -319,26 +319,26 @@ function Radio(props: ToggleInputProps) {
 
   const offBackgroundColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.errorBackground,
+    status === 'error' && colors.errorBackground,
     colors.palette.neutral200,
   ].filter(Boolean)[0]
 
   const outerBorderColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.error,
+    status === 'error' && colors.error,
     !on && colors.palette.neutral800,
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
     disabled && colors.transparent,
-    status === "error" && colors.errorBackground,
+    status === 'error' && colors.errorBackground,
     colors.palette.neutral100,
   ].filter(Boolean)[0]
 
   const dotBackgroundColor = [
     disabled && colors.palette.neutral600,
-    status === "error" && colors.error,
+    status === 'error' && colors.error,
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
@@ -379,22 +379,22 @@ function Switch(props: ToggleInputProps) {
   const knobSizeFallback = 2
 
   const knobWidth = [$detailStyleOverride?.width, $switchDetail?.width, knobSizeFallback].find(
-    (v) => typeof v === "number",
+    (v) => typeof v === 'number',
   )
 
   const knobHeight = [$detailStyleOverride?.height, $switchDetail?.height, knobSizeFallback].find(
-    (v) => typeof v === "number",
+    (v) => typeof v === 'number',
   )
 
   const offBackgroundColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.errorBackground,
+    status === 'error' && colors.errorBackground,
     colors.palette.neutral300,
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
     disabled && colors.transparent,
-    status === "error" && colors.errorBackground,
+    status === 'error' && colors.errorBackground,
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
@@ -402,7 +402,7 @@ function Switch(props: ToggleInputProps) {
     if (on) {
       return [
         $detailStyleOverride?.backgroundColor,
-        status === "error" && colors.error,
+        status === 'error' && colors.error,
         disabled && colors.palette.neutral600,
         colors.palette.neutral100,
       ].filter(Boolean)[0]
@@ -410,7 +410,7 @@ function Switch(props: ToggleInputProps) {
       return [
         $innerStyleOverride?.backgroundColor,
         disabled && colors.palette.neutral600,
-        status === "error" && colors.error,
+        status === 'error' && colors.error,
         colors.palette.neutral200,
       ].filter(Boolean)[0]
     }
@@ -429,7 +429,7 @@ function Switch(props: ToggleInputProps) {
       $switchInner?.paddingRight ||
       0) as number
 
-    const start = withTiming(on ? "100%" : "0%")
+    const start = withTiming(on ? '100%' : '0%')
     const marginStart = withTiming(on ? -(knobWidth || 0) - offsetRight : 0 + offsetLeft)
 
     return { start, marginStart }
@@ -468,43 +468,43 @@ function Switch(props: ToggleInputProps) {
   )
 }
 
-function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off" }) {
+function SwitchAccessibilityLabel(props: ToggleInputProps & { role: 'on' | 'off' }) {
   const { on, disabled, status, switchAccessibilityMode, role, innerStyle, detailStyle } = props
 
   if (!switchAccessibilityMode) return null
 
-  const shouldLabelBeVisible = (on && role === "on") || (!on && role === "off")
+  const shouldLabelBeVisible = (on && role === 'on') || (!on && role === 'off')
 
   const $switchAccessibilityStyle = [
     $switchAccessibility,
-    role === "off" && { end: "5%" },
-    role === "on" && { left: "5%" },
+    role === 'off' && { end: '5%' },
+    role === 'on' && { left: '5%' },
   ]
 
   const color = (function () {
     if (disabled) return colors.palette.neutral600
-    if (status === "error") return colors.error
+    if (status === 'error') return colors.error
     if (!on) return innerStyle?.backgroundColor || colors.palette.secondary500
     return detailStyle?.backgroundColor || colors.palette.neutral100
   })()
 
   return (
     <View style={$switchAccessibilityStyle}>
-      {switchAccessibilityMode === "text" && shouldLabelBeVisible && (
+      {switchAccessibilityMode === 'text' && shouldLabelBeVisible && (
         <View
           style={[
-            role === "on" && $switchAccessibilityLine,
-            role === "on" && { backgroundColor: color },
-            role === "off" && $switchAccessibilityCircle,
-            role === "off" && { borderColor: color },
+            role === 'on' && $switchAccessibilityLine,
+            role === 'on' && { backgroundColor: color },
+            role === 'off' && $switchAccessibilityCircle,
+            role === 'off' && { borderColor: color },
           ]}
         />
       )}
 
-      {switchAccessibilityMode === "icon" && shouldLabelBeVisible && (
+      {switchAccessibilityMode === 'icon' && shouldLabelBeVisible && (
         <Image
           style={[$switchAccessibilityIcon, { tintColor: color }]}
-          source={role === "off" ? iconRegistry.hidden : iconRegistry.view}
+          source={role === 'off' ? iconRegistry.hidden : iconRegistry.view}
         />
       )}
     </View>
@@ -526,9 +526,9 @@ function FieldLabel(props: BaseToggleProps) {
 
   const $labelStyle = [
     $label,
-    status === "error" && { color: colors.error },
-    labelPosition === "right" && $labelRight,
-    labelPosition === "left" && $labelLeft,
+    status === 'error' && { color: colors.error },
+    labelPosition === 'right' && $labelRight,
+    labelPosition === 'left' && $labelLeft,
     $labelStyleOverride,
     LabelTextProps?.style,
   ]
@@ -546,20 +546,20 @@ function FieldLabel(props: BaseToggleProps) {
 }
 
 const $inputWrapper: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
+  flexDirection: 'row',
+  alignItems: 'center',
 }
 
 const $inputOuterBase: ViewStyle = {
   height: 24,
   width: 24,
   borderWidth: 2,
-  alignItems: "center",
-  overflow: "hidden",
+  alignItems: 'center',
+  overflow: 'hidden',
   flexGrow: 0,
   flexShrink: 0,
-  justifyContent: "space-between",
-  flexDirection: "row",
+  justifyContent: 'space-between',
+  flexDirection: 'row',
 }
 
 const $inputOuterVariants: Record<Variants, StyleProp<ViewStyle>> = {
@@ -569,25 +569,25 @@ const $inputOuterVariants: Record<Variants, StyleProp<ViewStyle>> = {
 }
 
 const $checkboxInner: ViewStyle = {
-  width: "100%",
-  height: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-  overflow: "hidden",
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  overflow: 'hidden',
 }
 
 const $checkboxDetail: ImageStyle = {
   width: 20,
   height: 20,
-  resizeMode: "contain",
+  resizeMode: 'contain',
 }
 
 const $radioInner: ViewStyle = {
-  width: "100%",
-  height: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-  overflow: "hidden",
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  overflow: 'hidden',
 }
 
 const $radioDetail: ViewStyle = {
@@ -597,19 +597,19 @@ const $radioDetail: ViewStyle = {
 }
 
 const $switchInner: ViewStyle = {
-  width: "100%",
-  height: "100%",
-  alignItems: "center",
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
   borderColor: colors.transparent,
-  overflow: "hidden",
-  position: "absolute",
+  overflow: 'hidden',
+  position: 'absolute',
   paddingStart: 4,
   paddingEnd: 4,
 }
 
-const $switchDetail: SwitchToggleProps["inputDetailStyle"] = {
+const $switchDetail: SwitchToggleProps['inputDetailStyle'] = {
   borderRadius: 12,
-  position: "absolute",
+  position: 'absolute',
   width: 24,
   height: 24,
 }
@@ -631,15 +631,15 @@ const $labelLeft: TextStyle = {
 }
 
 const $switchAccessibility: TextStyle = {
-  width: "40%",
-  justifyContent: "center",
-  alignItems: "center",
+  width: '40%',
+  justifyContent: 'center',
+  alignItems: 'center',
 }
 
 const $switchAccessibilityIcon: ImageStyle = {
   width: 14,
   height: 14,
-  resizeMode: "contain",
+  resizeMode: 'contain',
 }
 
 const $switchAccessibilityLine: ViewStyle = {

@@ -1,18 +1,18 @@
 /* eslint-disable react/jsx-key */
-import React from "react"
-import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Icon, iconRegistry, IconTypes, Text } from "../../../components"
-import { colors, spacing } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoUseCase } from "../DemoUseCase"
+import React from 'react'
+import { ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
+import { Icon, iconRegistry, IconTypes, Text } from '../../../components'
+import { colors, spacing } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoUseCase } from '../DemoUseCase'
 
 const $demoIconContainer: ViewStyle = {
   padding: spacing.xs,
 }
 
 const $iconTile: ViewStyle = {
-  width: "33.333%",
-  alignItems: "center",
+  width: '33.333%',
+  alignItems: 'center',
   paddingVertical: spacing.xs,
 }
 
@@ -31,9 +31,9 @@ const $customIcon: ImageStyle = {
 }
 
 export const DemoIcon: Demo = {
-  name: "Icon",
+  name: 'Icon',
   description:
-    "A component to render a registered icon. It is wrapped in a <TouchableOpacity /> if `onPress` is provided, otherwise a <View />.",
+    'A component to render a registered icon. It is wrapped in a <TouchableOpacity /> if `onPress` is provided, otherwise a <View />.',
   data: [
     <DemoUseCase
       name="Icons"

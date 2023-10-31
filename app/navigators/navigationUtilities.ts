@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from "react"
-import { BackHandler, Platform } from "react-native"
-import { NavigationState, createNavigationContainerRef } from "@react-navigation/native"
-import Config from "../config"
-import type { PersistNavigationConfig } from "../config/config.base"
-import { useIsMounted } from "../utils/useIsMounted"
-import type { AppStackParamList, NavigationProps } from "./AppNavigator"
+import { useState, useEffect, useRef } from 'react'
+import { BackHandler, Platform } from 'react-native'
+import { NavigationState, createNavigationContainerRef } from '@react-navigation/native'
+import Config from '../config'
+import type { PersistNavigationConfig } from '../config/config.base'
+import { useIsMounted } from '../utils/useIsMounted'
+import type { AppStackParamList, NavigationProps } from './AppNavigator'
 
-import * as storage from "../utils/storage"
+import * as storage from '../utils/storage'
 
 type Storage = typeof storage
 
@@ -43,7 +43,7 @@ export function getActiveRouteName(
  */
 export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
   // ignore if iOS ... no back button!
-  if (Platform.OS === "ios") return
+  if (Platform.OS === 'ios') return
 
   // The reason we're using a ref here is because we need to be able
   // to update the canExit function without re-setting up all the listeners
@@ -80,10 +80,10 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
     }
 
     // Subscribe when we come to life
-    BackHandler.addEventListener("hardwareBackPress", onBackPress)
+    BackHandler.addEventListener('hardwareBackPress', onBackPress)
 
     // Unsubscribe when we're done
-    return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
+    return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress)
   }, [])
 }
 
@@ -92,9 +92,9 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
  * based on a config setting and the __DEV__ environment (dev or prod).
  */
 function navigationRestoredDefaultState(persistNavigation: PersistNavigationConfig) {
-  if (persistNavigation === "always") return false
-  if (persistNavigation === "dev" && __DEV__) return false
-  if (persistNavigation === "prod" && !__DEV__) return false
+  if (persistNavigation === 'always') return false
+  if (persistNavigation === 'dev' && __DEV__) return false
+  if (persistNavigation === 'prod' && !__DEV__) return false
 
   // all other cases, disable restoration by returning true
   return true
@@ -105,7 +105,7 @@ function navigationRestoredDefaultState(persistNavigation: PersistNavigationConf
  */
 export function useNavigationPersistence(storage: Storage, persistenceKey: string) {
   const [initialNavigationState, setInitialNavigationState] =
-    useState<NavigationProps["initialState"]>()
+    useState<NavigationProps['initialState']>()
   const isMounted = useIsMounted()
 
   const initNavState = navigationRestoredDefaultState(Config.persistNavigation)
@@ -113,7 +113,7 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
 
   const routeNameRef = useRef<keyof AppStackParamList | undefined>()
 
-  const onNavigationStateChange: NavigationProps["onStateChange"] = (state) => {
+  const onNavigationStateChange: NavigationProps['onStateChange'] = (state) => {
     const previousRouteName = routeNameRef.current
     const currentRouteName = getActiveRouteName(state)
 
@@ -133,7 +133,7 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
 
   const restoreState = async () => {
     try {
-      const state = (await storage.load(persistenceKey)) as NavigationProps["initialState"] | null
+      const state = (await storage.load(persistenceKey)) as NavigationProps['initialState'] | null
       if (state) setInitialNavigationState(state)
     } finally {
       if (isMounted()) setIsRestored(true)
