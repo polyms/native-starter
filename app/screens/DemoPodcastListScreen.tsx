@@ -56,7 +56,7 @@ export function DemoPodcastListScreen(_props: DemoTabScreenProps<'DemoPodcastLis
       if (response.kind === 'ok') {
         return response.episodes as Episode[]
       } else {
-        console.tron.error(`Error fetching episodes: ${JSON.stringify(response)}`, [])
+        console.error(`Error fetching episodes: ${JSON.stringify(response)}`, [])
         return []
       }
     },

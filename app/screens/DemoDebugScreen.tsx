@@ -23,17 +23,19 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<'DemoDebug'>> = function Dem
   const demoReactotron = React.useMemo(
     () => async () => {
       if (__DEV__) {
-        console.tron.display({
-          name: 'DISPLAY',
-          value: {
-            appId: Application.applicationId,
-            appName: Application.applicationName,
-            appVersion: Application.nativeApplicationVersion,
-            appBuildVersion: Application.nativeBuildVersion,
-            hermesEnabled: usingHermes,
-          },
-          important: true,
-        })
+        console.info(
+          JSON.stringify({
+            name: 'DISPLAY',
+            value: {
+              appId: Application.applicationId,
+              appName: Application.applicationName,
+              appVersion: Application.nativeApplicationVersion,
+              appBuildVersion: Application.nativeBuildVersion,
+              hermesEnabled: usingHermes,
+            },
+            important: true,
+          }),
+        )
       }
     },
     [],
