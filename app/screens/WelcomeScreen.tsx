@@ -1,80 +1,76 @@
-import { observer } from 'mobx-react-lite'
-import React, { FC } from 'react'
+import { isRTL } from '~/i18n'
+
+import React from 'react'
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
 
 import {
   Button, // @demo remove-current-line
   Text,
-} from '../components'
-import { isRTL } from '../i18n'
-import { useStores } from '../models'
+} from '~/components'
 // @demo remove-current-line
-import { AppStackScreenProps } from '../navigators'
+import { AppStackScreenProps } from '~/navigators'
+import { useAuthenticationStore } from '~/stores/authentication.store'
 // @demo remove-current-line
-import { colors, spacing } from '../theme'
-import { useHeader } from '../utils/useHeader'
+import { colors, spacing } from '~/theme'
+import { useHeader } from '~/utils/useHeader'
 // @demo remove-current-line
-import { useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle'
+import { useSafeAreaInsetsStyle } from '~/utils/useSafeAreaInsetsStyle'
 
-const welcomeLogo = require('../../assets/images/logo.png')
-const welcomeFace = require('../../assets/images/welcome-face.png')
+import welcomeLogo from '../../assets/images/logo.png'
+import welcomeFace from '../../assets/images/welcome-face.png'
 
 interface WelcomeScreenProps extends AppStackScreenProps<'Welcome'> {}
 
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(
-  function WelcomeScreen(
-    _props, // @demo remove-current-line
-  ) {
-    // @demo remove-block-start
-    const { navigation } = _props
-    const {
-      authenticationStore: { logout },
-    } = useStores()
+export const WelcomeScreen = (
+  _props: WelcomeScreenProps, // @demo remove-current-line
+) => {
+  // @demo remove-block-start
+  const { navigation } = _props
+  const { logout } = useAuthenticationStore()
 
-    function goNext() {
-      navigation.navigate('Demo', { screen: 'DemoShowroom' })
-    }
+  function goNext() {
+    navigation.navigate('Demo', { screen: 'DemoShowroom' })
+  }
 
-    useHeader(
-      {
-        rightTx: 'common.logOut',
-        onRightPress: logout,
-      },
-      [logout],
-    )
-    // @demo remove-block-end
+  useHeader(
+    {
+      rightTx: 'common.logOut',
+      onRightPress: logout,
+    },
+    [logout],
+  )
+  // @demo remove-block-end
 
-    const $bottomContainerInsets = useSafeAreaInsetsStyle(['bottom'])
+  const $bottomContainerInsets = useSafeAreaInsetsStyle(['bottom'])
 
-    return (
-      <View style={$container}>
-        <View style={$topContainer}>
-          <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-          <Text
-            testID="welcome-heading"
-            style={$welcomeHeading}
-            tx="welcomeScreen.readyForLaunch"
-            preset="heading"
-          />
-          <Text tx="welcomeScreen.exciting" preset="subheading" />
-          <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
-        </View>
-
-        <View style={[$bottomContainer, $bottomContainerInsets]}>
-          <Text tx="welcomeScreen.postscript" size="md" />
-          {/* @demo remove-block-start */}
-          <Button
-            testID="next-screen-button"
-            preset="reversed"
-            tx="welcomeScreen.letsGo"
-            onPress={goNext}
-          />
-          {/* @demo remove-block-end */}
-        </View>
+  return (
+    <View style={$container}>
+      <View style={$topContainer}>
+        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
+        <Text
+          testID="welcome-heading"
+          style={$welcomeHeading}
+          tx="welcomeScreen.readyForLaunch"
+          preset="heading"
+        />
+        <Text tx="welcomeScreen.exciting" preset="subheading" />
+        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
       </View>
-    )
-  },
-)
+
+      <View style={[$bottomContainer, $bottomContainerInsets]}>
+        <Text tx="welcomeScreen.postscript" size="md" />
+        {/* @demo remove-block-start */}
+        <Button
+          testID="next-screen-button"
+          preset="reversed"
+          tx="welcomeScreen.letsGo"
+          onPress={goNext}
+        />
+        {/* @demo remove-block-end */}
+      </View>
+    </View>
+  )
+}
 
 const $container: ViewStyle = {
   flex: 1,

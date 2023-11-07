@@ -5,11 +5,13 @@ extends:
   - plugin:react/recommended
   - plugin:react-native/all
   - standard
+  - plugin:@tanstack/eslint-plugin-query/recommended
   - prettier
 plugins:
   - '@typescript-eslint'
   - react
   - react-native
+  - '@tanstack/query'
 parserOptions:
   ecmaFeatures:
     jsx: true

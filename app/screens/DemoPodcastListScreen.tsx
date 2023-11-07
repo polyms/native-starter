@@ -1,7 +1,9 @@
 // Interested in migrating from FlatList to FlashList? Check out the recipe in our Ignite Cookbook
 // https://ignitecookbook.com/docs/recipes/MigratingToFlashList
-import { observer } from 'mobx-react-lite'
-import React, { FC, useEffect, useMemo } from 'react'
+import { isRTL } from '../i18n'
+
+import { useQuery } from '@tanstack/react-query'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   AccessibilityProps,
@@ -23,13 +25,12 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 
+import { api } from '~/services/api'
+import { Episode, useEpisode, useEpisodeStore } from '~/stores/episode.store'
+
 import { Button, Card, EmptyState, Icon, Screen, Text, Toggle } from '../components'
-import { isRTL } from '../i18n'
-import { useStores } from '../models'
-import { Episode } from '../models/Episode'
 import { DemoTabScreenProps } from '../navigators/DemoNavigator'
 import { colors, spacing } from '../theme'
-import { delay } from '../utils/delay'
 import { openLinkInBrowser } from '../utils/openLinkInBrowser'
 
 const ICON_SIZE = 14
@@ -39,110 +40,86 @@ const rnrImage2 = require('../../assets/images/rnr-image-2.png')
 const rnrImage3 = require('../../assets/images/rnr-image-3.png')
 const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
 
-export const DemoPodcastListScreen: FC<DemoTabScreenProps<'DemoPodcastList'>> = observer(
-  function DemoPodcastListScreen(_props) {
-    const { t } = useTranslation()
-    const { episodeStore } = useStores()
-
-    const [refreshing, setRefreshing] = React.useState(false)
-    const [isLoading, setIsLoading] = React.useState(false)
-
-    // initially, kick off a background refresh without the refreshing UI
-    useEffect(() => {
-      ;(async function load() {
-        setIsLoading(true)
-        await episodeStore.fetchEpisodes()
-        setIsLoading(false)
-      })()
-    }, [episodeStore])
-
-    // simulate a longer refresh, if the refresh is too fast for UX
-    async function manualRefresh() {
-      setRefreshing(true)
-      await Promise.all([episodeStore.fetchEpisodes(), delay(750)])
-      setRefreshing(false)
-    }
-
-    return (
-      <Screen
-        preset="fixed"
-        safeAreaEdges={['top']}
-        contentContainerStyle={$screenContentContainer}
-      >
-        <FlatList<Episode>
-          data={episodeStore.episodesForList}
-          extraData={episodeStore.favorites.length + episodeStore.episodes.length}
-          contentContainerStyle={$flatListContentContainer}
-          refreshing={refreshing}
-          onRefresh={manualRefresh}
-          ListEmptyComponent={
-            isLoading ? (
-              <ActivityIndicator />
-            ) : (
-              <EmptyState
-                preset="generic"
-                style={$emptyState}
-                headingTx={
-                  episodeStore.favoritesOnly
-                    ? 'demoPodcastListScreen.noFavoritesEmptyState.heading'
-                    : undefined
-                }
-                contentTx={
-                  episodeStore.favoritesOnly
-                    ? 'demoPodcastListScreen.noFavoritesEmptyState.content'
-                    : undefined
-                }
-                button={episodeStore.favoritesOnly ? null : undefined}
-                buttonOnPress={manualRefresh}
-                imageStyle={$emptyStateImage}
-                ImageProps={{ resizeMode: 'contain' }}
-              />
-            )
-          }
-          ListHeaderComponent={
-            <View style={$heading}>
-              <Text preset="heading" tx="demoPodcastListScreen.title" />
-              {(episodeStore.favoritesOnly || episodeStore.episodesForList.length > 0) && (
-                <View style={$toggle}>
-                  <Toggle
-                    value={episodeStore.favoritesOnly}
-                    onValueChange={() =>
-                      episodeStore.setProp('favoritesOnly', !episodeStore.favoritesOnly)
-                    }
-                    variant="switch"
-                    labelTx="demoPodcastListScreen.onlyFavorites"
-                    labelPosition="left"
-                    labelStyle={$labelStyle}
-                    accessibilityLabel={t('demoPodcastListScreen.accessibility.switch')}
-                  />
-                </View>
-              )}
-            </View>
-          }
-          renderItem={({ item }) => (
-            <EpisodeCard
-              key={item.guid}
-              episode={item}
-              isFavorite={episodeStore.hasFavorite(item)}
-              onPressFavorite={() => episodeStore.toggleFavorite(item)}
-            />
-          )}
-        />
-      </Screen>
-    )
-  },
-)
-
-const EpisodeCard = observer(function EpisodeCard({
-  episode,
-  isFavorite,
-  onPressFavorite,
-}: {
-  episode: Episode
-  onPressFavorite: () => void
-  isFavorite: boolean
-}) {
+export function DemoPodcastListScreen(_props: DemoTabScreenProps<'DemoPodcastList'>) {
   const { t } = useTranslation()
+  const { favorites, favoritesOnly, toggleFavoritesOnly } = useEpisodeStore()
+
+  const {
+    isRefetching,
+    isFetched,
+    refetch: manualRefresh,
+    data,
+  } = useQuery<Episode[]>({
+    queryKey: ['episodes'],
+    queryFn: async () => {
+      const response = await api.getEpisodes()
+      if (response.kind === 'ok') {
+        return response.episodes as Episode[]
+      } else {
+        console.tron.error(`Error fetching episodes: ${JSON.stringify(response)}`, [])
+        return []
+      }
+    },
+    initialData: [],
+  })
+
+  return (
+    <Screen preset="fixed" safeAreaEdges={['top']} contentContainerStyle={$screenContentContainer}>
+      <FlatList<Episode>
+        data={favoritesOnly ? favorites : data}
+        extraData={favorites.length + data.length}
+        contentContainerStyle={$flatListContentContainer}
+        refreshing={isRefetching}
+        onRefresh={manualRefresh}
+        ListEmptyComponent={
+          !isFetched ? (
+            <ActivityIndicator />
+          ) : (
+            <EmptyState
+              preset="generic"
+              style={$emptyState}
+              headingTx={
+                favoritesOnly ? 'demoPodcastListScreen.noFavoritesEmptyState.heading' : undefined
+              }
+              contentTx={
+                favoritesOnly ? 'demoPodcastListScreen.noFavoritesEmptyState.content' : undefined
+              }
+              button={favoritesOnly ? null : undefined}
+              buttonOnPress={() => manualRefresh()}
+              imageStyle={$emptyStateImage}
+              ImageProps={{ resizeMode: 'contain' }}
+            />
+          )
+        }
+        ListHeaderComponent={
+          <View style={$heading}>
+            <Text preset="heading" tx="demoPodcastListScreen.title" />
+            {(favoritesOnly || data.length > 0) && (
+              <View style={$toggle}>
+                <Toggle
+                  value={favoritesOnly}
+                  onValueChange={toggleFavoritesOnly}
+                  variant="switch"
+                  labelTx="demoPodcastListScreen.onlyFavorites"
+                  labelPosition="left"
+                  labelStyle={$labelStyle}
+                  accessibilityLabel={t('demoPodcastListScreen.accessibility.switch')}
+                />
+              </View>
+            )}
+          </View>
+        }
+        renderItem={({ item }) => <EpisodeCard key={item.guid} episode={item} />}
+      />
+    </Screen>
+  )
+}
+
+function EpisodeCard({ episode }: { episode: Episode }) {
+  const { t } = useTranslation()
+  const { addFavorite, removeFavorite } = useEpisodeStore()
+  const isFavorite = useEpisodeStore((s) => s.favorites.some((x) => x.guid === episode.guid))
+  const { subtitle, title, datePublished, duration } = useEpisode(episode)
   const liked = useSharedValue(isFavorite ? 1 : 0)
 
   const imageUri = useMemo(() => {
@@ -205,7 +182,8 @@ const EpisodeCard = observer(function EpisodeCard({
   )
 
   const handlePressFavorite = () => {
-    onPressFavorite()
+    if (liked.value) removeFavorite(episode)
+    else addFavorite(episode)
     liked.value = withSpring(liked.value ? 0 : 1)
   }
 
@@ -251,20 +229,16 @@ const EpisodeCard = observer(function EpisodeCard({
           <Text
             style={$metadataText}
             size="xxs"
-            accessibilityLabel={episode.datePublished.accessibilityLabel}
+            accessibilityLabel={datePublished.accessibilityLabel}
           >
-            {episode.datePublished.textLabel}
+            {datePublished.textLabel}
           </Text>
-          <Text
-            style={$metadataText}
-            size="xxs"
-            accessibilityLabel={episode.duration.accessibilityLabel}
-          >
-            {episode.duration.textLabel}
+          <Text style={$metadataText} size="xxs" accessibilityLabel={duration.accessibilityLabel}>
+            {duration.textLabel}
           </Text>
         </View>
       }
-      content={`${episode.parsedTitleAndSubtitle.title} - ${episode.parsedTitleAndSubtitle.subtitle}`}
+      content={`${title} - ${subtitle}`}
       {...accessibilityHintProps}
       RightComponent={<Image source={imageUri} style={$itemThumbnail} />}
       FooterComponent={
@@ -281,7 +255,7 @@ const EpisodeCard = observer(function EpisodeCard({
         >
           <Text
             size="xxs"
-            accessibilityLabel={episode.duration.accessibilityLabel}
+            accessibilityLabel={duration.accessibilityLabel}
             weight="medium"
             text={
               isFavorite
@@ -293,7 +267,7 @@ const EpisodeCard = observer(function EpisodeCard({
       }
     />
   )
-})
+}
 
 // #region Styles
 const $screenContentContainer: ViewStyle = {

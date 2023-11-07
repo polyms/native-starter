@@ -1,24 +1,21 @@
-import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput, TextStyle, ViewStyle } from 'react-native'
 
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from '../components'
-import { useStores } from '../models'
-import { AppStackScreenProps } from '../navigators'
-import { colors, spacing } from '../theme'
+import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from '~/components'
+import { AppStackScreenProps } from '~/navigators'
+import { useAuthenticationStore } from '~/stores/authentication.store'
+import { colors, spacing } from '~/theme'
 
 interface LoginScreenProps extends AppStackScreenProps<'Login'> {}
 
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
+export const LoginScreen: FC<LoginScreenProps> = (_props) => {
   const authPasswordInput = useRef<TextInput>()
 
   const [authPassword, setAuthPassword] = useState('')
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
-  const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  } = useStores()
+  const { authEmail, setAuthEmail, setAuthToken, validationError } = useAuthenticationStore()
 
   useEffect(() => {
     // Here is where you could fetch credentials from keychain or storage
@@ -116,7 +113,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       />
     </Screen>
   )
-})
+}
 
 const $screenContentContainer: ViewStyle = {
   paddingVertical: spacing.xxl,

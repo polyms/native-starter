@@ -9,6 +9,7 @@ plugins:
 importOrderSeparation: true
 importOrderSortSpecifiers: true
 importOrder:
+  - (intl-pluralrules|/i18n$|/utils/ignoreWarnings)
   - ^(@module-federation|~\w+.*\.scss$|~/i18n$)
   - ^.*(?!module)\.scss$
   - <THIRD_PARTY_MODULES>

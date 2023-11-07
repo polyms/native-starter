@@ -9,12 +9,14 @@ import en from 'date-fns/locale/en-US'
 import ko from 'date-fns/locale/ko'
 import parseISO from 'date-fns/parseISO'
 
+import i18n from '~/i18n/i18n'
+
 // import i18n from "app/i18n"
 
 type Options = Parameters<typeof format>[2]
 
 const getLocale = (): Locale => {
-  const locale = 'en-US'.split('-')[0]
+  const locale = i18n.language.split('-')[0]
   return locale === 'ar' ? ar : locale === 'ko' ? ko : en
 }
 

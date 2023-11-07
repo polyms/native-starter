@@ -6,11 +6,15 @@ const plugins = [
     {
       paths: [
         {
+          rootPathPrefix: '~/',
+          rootPathSuffix: 'app',
+        },
+        {
           rootPathPrefix: 'app/',
           rootPathSuffix: 'app',
         },
         {
-          rootPathPrefix: 'assets/',
+          rootPathPrefix: '~assets/',
           rootPathSuffix: 'assets',
         },
       ],

@@ -1,12 +1,13 @@
+import { isRTL } from '~/i18n'
+
 import * as Application from 'expo-application'
 import React, { FC } from 'react'
 import { Linking, Platform, TextStyle, View, ViewStyle } from 'react-native'
 
-import { Button, ListItem, Screen, Text } from '../components'
-import { isRTL } from '../i18n'
-import { useStores } from '../models'
-import { DemoTabScreenProps } from '../navigators/DemoNavigator'
-import { colors, spacing } from '../theme'
+import { Button, ListItem, Screen, Text } from '~/components'
+import { DemoTabScreenProps } from '~/navigators/DemoNavigator'
+import { useAuthenticationStore } from '~/stores/authentication.store'
+import { colors, spacing } from '~/theme'
 
 function openLinkInBrowser(url: string) {
   Linking.canOpenURL(url).then((canOpen) => canOpen && Linking.openURL(url))
@@ -15,9 +16,7 @@ function openLinkInBrowser(url: string) {
 export const DemoDebugScreen: FC<DemoTabScreenProps<'DemoDebug'>> = function DemoDebugScreen(
   _props,
 ) {
-  const {
-    authenticationStore: { logout },
-  } = useStores()
+  const { logout } = useAuthenticationStore()
 
   const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
