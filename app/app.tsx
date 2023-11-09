@@ -4,12 +4,14 @@ import './utils/ignoreWarnings'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFonts } from 'expo-font'
 import * as Linking from 'expo-linking'
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
 
 import Config from './config'
 import { AppNavigator, useNavigationPersistence } from './navigators'
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
+import { useAppStore } from './stores/app.store'
 import { customFontsToLoad } from './theme'
 import * as storage from './utils/storage'
 
@@ -65,10 +67,11 @@ function App(props: AppProps) {
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
+  const hydrated = useHydration()
 
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(hideSplashScreen, 500)
   }, [])
 
@@ -88,7 +91,7 @@ function App(props: AppProps) {
   // In iOS: application:didFinishLaunchingWithOptions:
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
-  if (!isNavigationStateRestored || !areFontsLoaded) return null
+  if (!hydrated || !isNavigationStateRestored || !areFontsLoaded) return null
 
   const linking = {
     prefixes: [prefix],
@@ -112,6 +115,35 @@ function App(props: AppProps) {
 }
 
 export default App
+
+const useHydration = () => {
+  const [hydrated, setHydrated] = useState(false)
+  const { i18n } = useTranslation()
+
+  useEffect(() => {
+    // Note: This is just in case you want to take into account manual rehydration.
+    // You can remove the following line if you don't need it.
+    const unsubHydrate = useAppStore.persist.onHydrate(() => setHydrated(false))
+
+    const unsubFinishHydration = useAppStore.persist.onFinishHydration(() => setHydrated(true))
+
+    setHydrated(useAppStore.persist.hasHydrated())
+
+    return () => {
+      unsubHydrate()
+      unsubFinishHydration()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (hydrated) {
+      const { lang } = useAppStore.getState()
+      if (lang !== i18n.language) i18n.changeLanguage(lang)
+    }
+  }, [hydrated])
+
+  return hydrated
+}
 
 // ================================================================================================
 
