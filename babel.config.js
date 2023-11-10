@@ -28,7 +28,7 @@ const plugins = [
 
 /** @type {import('@babel/core').TransformOptions} */
 module.exports = {
-  presets: ['babel-preset-expo'],
+  presets: [['babel-preset-expo', { jsxImportSource: 'nativewind' }], 'nativewind/babel'],
   env: {
     production: {},
   },

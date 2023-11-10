@@ -1,5 +1,6 @@
-const { getDefaultConfig } = require('metro-config')
+// const { getDefaultConfig } = require('metro-config')
 const { getDefaultConfig: getDefaultExpoConfig } = require('@expo/metro-config')
+const { withNativeWind } = require('nativewind/metro')
 
 let metroConfig
 let isExpo = false
@@ -34,8 +35,9 @@ if (isExpo) {
   const MetroSymlinksResolver = require('@rnx-kit/metro-resolver-symlinks')
 
   metroConfig = (async () => {
-    const defaultConfig = await getDefaultConfig()
-    return makeMetroConfig({
+    const defaultConfig = getDefaultExpoConfig(__dirname)
+    let config = makeMetroConfig({
+      ...defaultConfig,
       projectRoot: __dirname,
       // watchFolders: [`${__dirname}/../..`], // for monorepos
       resolver: {
@@ -44,10 +46,17 @@ if (isExpo) {
          *
          * You can disable it if you're not using pnpm or a monorepo or symlinks.
          */
+        ...defaultConfig.resolver,
         resolveRequest: MetroSymlinksResolver(),
         assetExts: [...defaultConfig.resolver.assetExts, 'bin'],
       },
     })
+
+    config = withNativeWind(config, {
+      input: './app/styles/global.css',
+    })
+
+    return config
   })()
 }
 
