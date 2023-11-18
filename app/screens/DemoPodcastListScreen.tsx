@@ -2,13 +2,13 @@
 // https://ignitecookbook.com/docs/recipes/MigratingToFlashList
 import { isRTL } from '../i18n'
 
+import { FlashList } from '@shopify/flash-list'
 import { useQuery } from '@tanstack/react-query'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   AccessibilityProps,
   ActivityIndicator,
-  FlatList,
   Image,
   ImageStyle,
   Platform,
@@ -65,7 +65,7 @@ export function DemoPodcastListScreen(_props: DemoTabScreenProps<'DemoPodcastLis
 
   return (
     <Screen preset="fixed" safeAreaEdges={['top']} contentContainerStyle={$screenContentContainer}>
-      <FlatList<Episode>
+      <FlashList<Episode>
         data={favoritesOnly ? favorites : data}
         extraData={favorites.length + data.length}
         contentContainerStyle={$flatListContentContainer}
