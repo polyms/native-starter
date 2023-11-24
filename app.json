@@ -1,10 +1,10 @@
 {
-	"name": "IgniteApp",
-	"displayName": "IgniteApp",
+	"name": "PolymsApp",
+	"displayName": "PolymsApp",
 	"expo": {
-		"name": "IgniteApp",
-		"slug": "IgniteApp",
-		"scheme": "igniteapp",
+		"name": "PolymsApp",
+		"slug": "polyms-app",
+		"scheme": "polymsapp",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"userInterfaceStyle": "automatic",
@@ -21,7 +21,7 @@
 		"assetBundlePatterns": ["**/*"],
 		"android": {
 			"icon": "./assets/images/app-icon-android-legacy.png",
-			"package": "com.igniteapp",
+			"package": "com.polyms.app",
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/app-icon-android-adaptive-foreground.png",
 				"backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
@@ -35,7 +35,7 @@
 		"ios": {
 			"icon": "./assets/images/app-icon-ios.png",
 			"supportsTablet": true,
-			"bundleIdentifier": "com.igniteapp",
+			"bundleIdentifier": "com.polyms.app",
 			"splash": {
 				"image": "./assets/images/splash-logo-ios-mobile.png",
 				"tabletImage": "./assets/images/splash-logo-ios-tablet.png",

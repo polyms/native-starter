@@ -7,9 +7,9 @@ import React from 'react'
 import { AppRegistry } from 'react-native'
 import RNBootSplash from 'react-native-bootsplash'
 
-function IgniteApp() {
+function PolymsApp() {
   return <App hideSplashScreen={RNBootSplash.hide} />
 }
 
-AppRegistry.registerComponent('IgniteApp', () => IgniteApp)
+AppRegistry.registerComponent('PolymsApp', () => PolymsApp)
 export default App

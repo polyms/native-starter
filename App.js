@@ -12,12 +12,12 @@ import App from './app/app.tsx'
 
 SplashScreen.preventAutoHideAsync()
 
-function IgniteApp() {
+function PolymsApp() {
   return <App hideSplashScreen={SplashScreen.hideAsync} />
 }
 
 if (Platform.OS !== 'web') {
-  registerRootComponent(IgniteApp)
+  registerRootComponent(PolymsApp)
 }
 
-export default IgniteApp
+export default PolymsApp
