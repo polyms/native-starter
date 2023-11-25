@@ -1,6 +1,13 @@
 // const { getDefaultConfig } = require('metro-config')
 const { getDefaultConfig: getDefaultExpoConfig } = require('@expo/metro-config')
 const { withNativeWind } = require('nativewind/metro')
+const MetroConfig = require('@ui-kitten/metro-config')
+
+const evaConfig = {
+  evaPackage: '@eva-design/eva',
+  // Optional, but may be useful when using mapping customization feature.
+  customMappingPath: './app/theme/mapping.json',
+}
 
 let metroConfig
 let isExpo = false
@@ -35,7 +42,7 @@ if (isExpo) {
   const MetroSymlinksResolver = require('@rnx-kit/metro-resolver-symlinks')
 
   metroConfig = (async () => {
-    const defaultConfig = getDefaultExpoConfig(__dirname)
+    const defaultConfig = MetroConfig.create(evaConfig, getDefaultExpoConfig(__dirname))
     let config = makeMetroConfig({
       ...defaultConfig,
       projectRoot: __dirname,
@@ -54,6 +61,7 @@ if (isExpo) {
 
     config = withNativeWind(config, {
       input: './app/styles/global.css',
+      inlineRem: 16,
     })
 
     return config

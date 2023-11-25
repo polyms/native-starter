@@ -1,18 +1,22 @@
 import './i18n'
 import './utils/ignoreWarnings'
 
+import * as eva from '@eva-design/eva'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { useFonts } from 'expo-font'
 import * as Linking from 'expo-linking'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
+import { ThemeProvider } from 'styled-components/native'
 
 import Config from './config'
 import { AppNavigator, useNavigationPersistence } from './navigators'
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
 import { useAppStore } from './stores/app.store'
-import { customFontsToLoad } from './theme'
+import theme, { customFontsToLoad } from './theme'
 import * as storage from './utils/storage'
 
 /* eslint-disable import/first */
@@ -103,11 +107,17 @@ function App(props: AppProps) {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
-          <AppNavigator
-            linking={linking}
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
-          />
+          <ThemeProvider theme={theme}>
+            <IconRegistry icons={EvaIconsPack} />
+
+            <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+              <AppNavigator
+                linking={linking}
+                initialState={initialNavigationState}
+                onStateChange={onNavigationStateChange}
+              />
+            </ApplicationProvider>
+          </ThemeProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>

@@ -4,6 +4,7 @@ import { Text as RNText, TextProps as RNTextProps, StyleProp, TextStyle } from '
 
 import { TxKeyPath, isRTL } from '../i18n'
 import { colors, typography } from '../theme'
+import { TOptions } from 'i18next'
 
 type Sizes = keyof typeof $sizeStyles
 type Weights = keyof typeof typography.primary
@@ -22,7 +23,7 @@ export interface TextProps extends RNTextProps {
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  txOptions?: unknown
+  txOptions?: TOptions
   /**
    * An optional style override useful for padding & margin.
    */

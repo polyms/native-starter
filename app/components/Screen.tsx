@@ -1,4 +1,5 @@
 import { useScrollToTop } from '@react-navigation/native'
+import { Layout } from '@ui-kitten/components'
 import { StatusBar, StatusBarProps } from 'expo-status-bar'
 import React, { useRef, useState } from 'react'
 import {
@@ -13,7 +14,6 @@ import {
   ViewStyle,
 } from 'react-native'
 
-import { colors } from '../theme'
 import { ExtendedEdge, useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle'
 
 interface BaseScreenProps {
@@ -190,7 +190,7 @@ function ScreenWithScrolling(props: ScreenProps) {
 
 export function Screen(props: ScreenProps) {
   const {
-    backgroundColor = colors.background,
+    backgroundColor,
     KeyboardAvoidingViewProps,
     keyboardOffset = 0,
     safeAreaEdges,
@@ -201,7 +201,7 @@ export function Screen(props: ScreenProps) {
   const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
 
   return (
-    <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
+    <Layout style={[$containerStyle, !!backgroundColor && { backgroundColor }, $containerInsets]}>
       <StatusBar style={statusBarStyle} {...StatusBarProps} />
 
       <KeyboardAvoidingView
@@ -216,7 +216,7 @@ export function Screen(props: ScreenProps) {
           <ScreenWithScrolling {...props} />
         )}
       </KeyboardAvoidingView>
-    </View>
+    </Layout>
   )
 }
 
