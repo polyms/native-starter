@@ -10,7 +10,6 @@ import * as Linking from 'expo-linking'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
-import { ThemeProvider } from 'styled-components/native'
 
 import Config from './config'
 import { AppNavigator, useNavigationPersistence } from './navigators'
@@ -107,17 +106,15 @@ function App(props: AppProps) {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <IconRegistry icons={EvaIconsPack} />
+          <IconRegistry icons={EvaIconsPack} />
 
-            <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-              <AppNavigator
-                linking={linking}
-                initialState={initialNavigationState}
-                onStateChange={onNavigationStateChange}
-              />
-            </ApplicationProvider>
-          </ThemeProvider>
+          <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+            <AppNavigator
+              linking={linking}
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
+          </ApplicationProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>

@@ -1,9 +1,9 @@
-import { useTheme } from 'styled-components/native'
 
+import { useTheme } from '@ui-kitten/components'
 import theme from './theme.json'
 
 export function useAppTheme() {
-  return useTheme() as AppTheme
+  return useTheme() as unknown as AppTheme
 }
 
 // ================================================================================================

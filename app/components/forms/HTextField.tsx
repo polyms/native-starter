@@ -1,4 +1,4 @@
-import { TxKeyPath, isRTL } from '~/i18n'
+import { isRTL } from '~/i18n'
 
 import { ComponentType, useImperativeHandle, useRef, useState } from 'react'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
@@ -10,13 +10,13 @@ import {
   TextInputProps,
   TextStyle,
   TouchableOpacity,
+  ViewProps,
   ViewStyle,
 } from 'react-native'
-import styled from 'styled-components/native'
 
-import { useAppTheme } from '~/theme'
+import { styled, useAppTheme } from '~/theme'
 
-import { Text, TextProps } from '../Text'
+import { TextProps } from '../Text'
 
 /**
  * A component that allows for the entering and editing of text.
@@ -74,13 +74,9 @@ export const HTextField = function TextField(
       accessibilityState={{ disabled }}
     >
       {!!(label || labelTx) && (
-        <LabelText
-          preset="formLabel"
-          text={label}
-          tx={labelTx}
-          txOptions={labelTxOptions}
-          {...labelTextProps}
-        />
+        <LabelText category="label" {...labelTextProps}>
+          {labelTx ? t(labelTx, labelTxOptions) : label}
+        </LabelText>
       )}
 
       <Wrapper style={inputWrapperStyle} invalid={invalid} focus={isFocus} disabled={disabled}>
@@ -104,7 +100,7 @@ export const HTextField = function TextField(
           underlineColorAndroid="transparent" // 'rgba(0, 0, 0, 0)'
           textAlignVertical="top"
           placeholder={placeholderContent}
-          placeholderTextColor={theme.light.secondaryColor}
+          placeholderTextColor={theme['color-basic-500']}
           textAlign={isRTL() ? 'right' : 'left'}
           {...inputProps}
           editable={!disabled}
@@ -122,87 +118,76 @@ export const HTextField = function TextField(
         )}
       </Wrapper>
       {!!(helper || helperTx) && (
-        <HelpText
-          preset="formHelper"
-          text={helper}
-          tx={helperTx}
-          txOptions={helperTxOptions}
-          {...helperTextProps}
-        />
+        <HelpText category="c2" appearance="hint" {...helperTextProps}>
+          {helperTx ? t(helperTx, helperTxOptions) : helper}
+        </HelpText>
       )}
-      {error && <ErrorText text={error.message} tx={(error.message || error.type) as TxKeyPath} />}
+      {error && <HelpText status="danger">{t(error.message || error.type)}</HelpText>}
     </TouchableOpacity>
   )
 }
 
-const Wrapper = styled.View<FieldState>`
-  flex-direction: row;
-  align-items: flex-start;
-  justifycontent: center;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: ${({ theme, disabled }) =>
-    disabled ? theme.light.secondaryBg : theme.light.bodyBg};
-  border-color: ${({ theme, focus, invalid }) => {
-    if (invalid) return theme.light.formInvalidBorderColor
-    if (focus) return theme.light.primary
-    return theme.light.gray500
-  }};
-  overflow: hidden;
-  padding: 8px;
-`
+const Wrapper = styled.View<FieldState>((theme, { disabled, focus, invalid }) => ({
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  justifycontent: 'center',
+  borderWidth: 1,
+  borderRadius: 4,
+  backgroundColor: disabled ? theme['color-basic-disabled'] : theme['background-basic-color-1'],
+  borderColor: (() => {
+    if (invalid) return theme['color-danger-default-border']
+    if (focus) return theme['color-primary-default-border']
+    return theme['color-basic-default-border']
+  })(),
+  overflow: 'hidden',
+  padding: 8,
+}))
 
-const FocusLine = styled.View<FieldState>`
-  position: absolute;
-  top: 2px;
-  bottom: 2px;
-  left: 2px;
-  width: 4px;
-  opacity: 0.7;
-  border-radius: 2px;
-  background-color: ${({ theme, focus, invalid }) => {
-    if (invalid) return theme.light.formInvalidBorderColor
-    if (focus) return theme.light.primary
+const FocusLine = styled.View<FieldState>((theme, { focus, invalid }) => ({
+  position: 'absolute',
+  top: 2,
+  bottom: 2,
+  left: 2,
+  width: 4,
+  opacity: 0.7,
+  borderRadius: 2,
+  backgroundColor: (() => {
+    if (invalid) return theme['color-danger-default-border']
+    if (focus) return theme['color-primary-default-border']
     return 'transparent'
-  }};
-`
+  })(),
+}))
 
-const AccessoryView = styled.View`
-  min-height: 24px;
-  justify-content: center;
-  align-items: center;
-  padding-left: 4px;
-`
+const AccessoryView = styled.View(() => ({
+  minHeight: 24,
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingLeft: 4,
+}))
 
-const InputControl = styled(TextInput)`
-  flex: 1;
-  font-size: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 0;
-  align-self: stretch;
-  font-family: spaceGroteskRegular;
-  min-height: ${(props) => (props.multiline ? '112px' : '24px')};
-`
+const InputControl = styled.TextInput((_, { multiline }) => ({
+  flex: 1,
+  fontSize: 16,
+  paddingLeft: 4,
+  paddingRight: 4,
+  paddingTop: 0,
+  alignSelf: 'stretch',
+  // fontFamily: 'spaceGroteskRegular',
+  minHeight: multiline ? 112 : 24,
+}))
 
-const LabelText = styled(Text)`
-  margin-top: 4px;
-  margin-bottom: 4px;
-`
+const LabelText = styled.Text(() => ({
+  marginTop: 4,
+  marginBottom: 4,
+}))
 
-const HelpText = styled(Text)`
-  margin-top: 2px;
-  color: ${({ theme }) => theme.light.secondaryColor};
-`
-
-const ErrorText = styled(Text)`
-  margin-top: 2px;
-  color: ${({ theme }) => theme.light.formInvalidColor};
-`
+const HelpText = styled.Text(() => ({
+  marginTop: 2,
+}))
 
 // ================================================================================================
 
-type FieldState = {
+interface FieldState extends ViewProps {
   invalid: boolean
   focus: boolean
   disabled?: boolean

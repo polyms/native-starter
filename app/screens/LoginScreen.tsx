@@ -1,66 +1,81 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
-import { TextInput, TextStyle, ViewStyle } from 'react-native'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Text } from '@ui-kitten/components'
+import { FC, useCallback, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { TextStyle, ViewStyle } from 'react-native'
+import * as y from 'yup'
 
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from '~/components'
+import { HTextFieldAccessoryProps, Icon, Screen } from '~/components'
+import { HTextField } from '~/components/forms'
 import { AppStackScreenProps } from '~/navigators'
 import { useAuthenticationStore } from '~/stores/authentication.store'
-import { colors, spacing } from '~/theme'
+import { spacing, useAppTheme } from '~/theme'
 
-interface LoginScreenProps extends AppStackScreenProps<'Login'> {}
+const schema = y.object({
+  email: y.string().required('Email is required').email('Invalid email format'),
+  password: y
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
+})
+
+export type FormType = y.InferType<typeof schema>
 
 export const LoginScreen: FC<LoginScreenProps> = (_props) => {
-  const authPasswordInput = useRef<TextInput>()
+  const { t } = useTranslation()
+  const theme = useAppTheme()
+  const { authEmail, setAuthEmail, setAuthToken } = useAuthenticationStore()
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { submitCount },
+  } = useForm<FormType>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: authEmail || 'user@polyms.app',
+      password: 'polymsIsAwes0m3',
+    },
+  })
 
-  const [authPassword, setAuthPassword] = useState('')
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [attemptsCount, setAttemptsCount] = useState(0)
-  const { authEmail, setAuthEmail, setAuthToken, validationError } = useAuthenticationStore()
 
-  useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail('ignite@infinite.red')
-    setAuthPassword('ign1teIsAwes0m3')
+  // useEffect(() => {
+  //   // Return a "cleanup" function that React will run when the component unmounts
+  //   return () => {
+  //     setAuthPassword('')
+  //     setAuthEmail('')
+  //   }
+  // }, [])
 
-    // Return a "cleanup" function that React will run when the component unmounts
-    return () => {
-      setAuthPassword('')
-      setAuthEmail('')
-    }
-  }, [])
-
-  const error = isSubmitted ? validationError : ''
-
-  function login() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
-
-    if (validationError) return
+  const login: SubmitHandler<FormType> = (data) => {
+    console.info('Login: ', data)
 
     // Make a request to your server to get an authentication token.
     // If successful, reset the fields and set the token.
-    setIsSubmitted(false)
-    setAuthPassword('')
-    setAuthEmail('')
+    reset()
 
     // We'll mock this with a fake token.
+    setAuthEmail(data.email)
     setAuthToken(String(Date.now()))
   }
 
-  const PasswordRightAccessory = useMemo(
-    () =>
-      function PasswordRightAccessory(props: TextFieldAccessoryProps) {
-        return (
-          <Icon
-            icon={isAuthPasswordHidden ? 'view' : 'hidden'}
-            color={colors.palette.neutral800}
-            containerStyle={props.style}
-            size={20}
-            onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
-          />
-        )
-      },
+  const PasswordRightAccessory = useCallback(
+    (props: HTextFieldAccessoryProps) => {
+      return (
+        <Icon
+          {...props}
+          icon={isAuthPasswordHidden ? 'view' : 'hidden'}
+          color={theme['color-basic-600']}
+          containerStyle={props.style}
+          size={20}
+          onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
+        />
+      )
+    },
     [isAuthPasswordHidden],
   )
 
@@ -70,13 +85,21 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={['top', 'bottom']}
     >
-      <Text testID="login-heading" tx="loginScreen.signIn" preset="heading" style={$signIn} />
-      <Text tx="loginScreen.enterDetails" preset="subheading" style={$enterDetails} />
-      {attemptsCount > 2 && <Text tx="loginScreen.hint" size="sm" weight="light" style={$hint} />}
+      <Text style={$signIn} category="h1" testID="login-heading">
+        {t('loginScreen.signIn')}
+      </Text>
+      <Text style={$enterDetails} category="s1">
+        {t('loginScreen.enterDetails')}
+      </Text>
+      {submitCount > 2 && (
+        <Text category="c1" style={$hint} status="danger">
+          {t('loginScreen.hint')}
+        </Text>
+      )}
 
-      <TextField
-        value={authEmail}
-        onChangeText={setAuthEmail}
+      <HTextField
+        name="email"
+        control={control}
         containerStyle={$textField}
         autoCapitalize="none"
         autoComplete="email"
@@ -84,15 +107,11 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
         keyboardType="email-address"
         labelTx="loginScreen.emailFieldLabel"
         placeholderTx="loginScreen.emailFieldPlaceholder"
-        helper={error}
-        status={error ? 'error' : undefined}
-        onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
 
-      <TextField
-        ref={authPasswordInput}
-        value={authPassword}
-        onChangeText={setAuthPassword}
+      <HTextField
+        name="password"
+        control={control}
         containerStyle={$textField}
         autoCapitalize="none"
         autoComplete="password"
@@ -100,17 +119,19 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
         secureTextEntry={isAuthPasswordHidden}
         labelTx="loginScreen.passwordFieldLabel"
         placeholderTx="loginScreen.passwordFieldPlaceholder"
-        onSubmitEditing={login}
-        RightAccessory={PasswordRightAccessory}
+        onSubmitEditing={handleSubmit(login)}
+        accessoryRight={PasswordRightAccessory}
+        // accessoryRight={(props) => (
+        //   <TouchableWithoutFeedback onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}>
+        //     <UIIcon {...props} name={!isAuthPasswordHidden ? 'eye-off' : 'eye'} />
+        //   </TouchableWithoutFeedback>
+        // )}
+        // onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
 
-      <Button
-        testID="login-button"
-        tx="loginScreen.tapToSignIn"
-        style={$tapButton}
-        preset="reversed"
-        onPress={login}
-      />
+      <Button testID="login-button" size="large" status="basic" onPress={handleSubmit(login)}>
+        {t('loginScreen.tapToSignIn')}
+      </Button>
     </Screen>
   )
 }
@@ -129,16 +150,14 @@ const $enterDetails: TextStyle = {
 }
 
 const $hint: TextStyle = {
-  color: colors.tint,
   marginBottom: spacing.md,
+  opacity: 0.8,
 }
 
 const $textField: ViewStyle = {
   marginBottom: spacing.lg,
 }
 
-const $tapButton: ViewStyle = {
-  marginTop: spacing.xs,
-}
+// ================================================================================================
 
-// @demo remove-file
+interface LoginScreenProps extends AppStackScreenProps<'Login'> {}
