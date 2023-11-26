@@ -1,5 +1,5 @@
 import { Text, TextProps } from '@ui-kitten/components'
-import { ComponentType } from 'react'
+import { ComponentType, forwardRef } from 'react'
 import {
   StyleProp,
   TextInput,
@@ -17,17 +17,33 @@ export function styled<
   Style extends ViewStyle = ViewStyle,
   Type extends ComponentType<ComponentProps> = ComponentType<ComponentProps>,
   Props extends ComponentProps = ComponentProps,
->(WrappedComponent: Type, styleBuilder: (theme: AppTheme, props: Props) => Style) {
+>(WrappedComponent: Type, styleBuilder: (theme: AppTheme, props: ComponentProps) => Style) {
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component'
 
-  const Component = (props) => {
+  // let Component: any = (props) => {
+  //   const theme = useAppTheme()
+  //   const internalStyles = styleBuilder(theme, props)
+  //   return <>
+  //       <Text>{JSON.stringify(instanceof WrappedComponent)}</Text>
+  //   <WrappedComponent {...props} style={[internalStyles, props.style] as StyleProp<Style>} />
+  //   </>
+  // }
+  // eslint-disable-next-line react/display-name
+  const Component = forwardRef<typeof WrappedComponent, ComponentProps>((forwardProps, ref) => {
     const theme = useAppTheme()
-    const internalStyles = styleBuilder(theme, props)
-    return <WrappedComponent {...props} style={[internalStyles, props.style] as StyleProp<Style>} />
-  }
+    const internalStyles = styleBuilder(theme, forwardProps)
+    return (
+      <WrappedComponent
+        {...(forwardProps as any)}
+        style={[internalStyles, forwardProps.style] as StyleProp<Style>}
+        ref={WrappedComponent.propTypes ? ref : null}
+      />
+    )
+  })
+  console.log(WrappedComponent.prototype?.isReactComponent)
   Component.displayName = `withStyled(${displayName})` // as ComponentProps['style']<refer Style>
 
-  return Component as IfEquals<Props, ComponentProps, Type, ComponentType<Props>>
+  return Component as unknown as IfEquals<Props, ComponentProps, Type, ComponentType<Props>>
 }
 
 styled.View = function styledView<T = ViewProps>(
