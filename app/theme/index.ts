@@ -3,6 +3,7 @@ export * from './spacing'
 export * from './typography'
 export * from './timing'
 export * from './useAppTheme'
+export * from './useStyles'
 export * from './styled'
 
 export { default } from './theme.json'

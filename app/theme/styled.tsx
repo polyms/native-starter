@@ -20,15 +20,6 @@ export function styled<
 >(WrappedComponent: Type, styleBuilder: (theme: AppTheme, props: ComponentProps) => Style) {
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component'
 
-  // let Component: any = (props) => {
-  //   const theme = useAppTheme()
-  //   const internalStyles = styleBuilder(theme, props)
-  //   return <>
-  //       <Text>{JSON.stringify(instanceof WrappedComponent)}</Text>
-  //   <WrappedComponent {...props} style={[internalStyles, props.style] as StyleProp<Style>} />
-  //   </>
-  // }
-  // eslint-disable-next-line react/display-name
   const Component = forwardRef<typeof WrappedComponent, ComponentProps>((forwardProps, ref) => {
     const theme = useAppTheme()
     const internalStyles = styleBuilder(theme, forwardProps)
@@ -40,8 +31,7 @@ export function styled<
       />
     )
   })
-  console.log(WrappedComponent.prototype?.isReactComponent)
-  Component.displayName = `withStyled(${displayName})` // as ComponentProps['style']<refer Style>
+  Component.displayName = `withStyled(${displayName})`
 
   return Component as unknown as IfEquals<Props, ComponentProps, Type, ComponentType<Props>>
 }
