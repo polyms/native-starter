@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
 
+import { AssetIconsPack } from './components/asset-icons'
 import Config from './config'
 import { AppNavigator, useNavigationPersistence } from './navigators'
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
@@ -106,7 +107,7 @@ function App(props: AppProps) {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
-          <IconRegistry icons={EvaIconsPack} />
+          <IconRegistry icons={[EvaIconsPack, AssetIconsPack]} />
 
           <ApplicationProvider {...eva} theme={{ ...eva.light, ...mapping.strict, ...theme }}>
             <AppNavigator

@@ -29,7 +29,7 @@ import { api } from '~/services/api'
 import { Episode, useEpisode, useEpisodeStore } from '~/stores/episode.store'
 
 import { Button, Card, EmptyState, Icon, Screen, Text, Toggle } from '../components'
-import { DemoTabScreenProps } from '../navigators/DemoNavigator'
+import { DemoTabScreenProps } from '../navigators/MainNavigator'
 import { colors, spacing } from '../theme'
 import { openLinkInBrowser } from '../utils/openLinkInBrowser'
 

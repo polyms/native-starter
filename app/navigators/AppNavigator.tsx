@@ -17,10 +17,10 @@ import { useColorScheme } from 'react-native'
 import Config from '~/config'
 import * as Screens from '~/screens'
 import { useAuthenticationStore } from '~/stores/authentication.store'
-import { colors } from '~/theme'
+import { useAppTheme } from '~/theme'
 
 // @demo remove-current-line
-import { DemoNavigator, DemoTabParamList } from './DemoNavigator'
+import { DemoTabParamList, MainNavigator } from './MainNavigator'
 // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
 
@@ -36,11 +36,12 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 function AppStack() {
   // @demo remove-block-start
   const { isAuthenticated } = useAuthenticationStore()
+  const theme = useAppTheme()
 
   // @demo remove-block-end
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
+      screenOptions={{ headerShown: false, navigationBarColor: theme['background-basic-color-3'] }}
       initialRouteName={isAuthenticated() ? 'Welcome' : 'Login'} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
@@ -49,7 +50,7 @@ function AppStack() {
           {/* @demo remove-block-end */}
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           {/* @demo remove-block-start */}
-          <Stack.Screen name="Demo" component={DemoNavigator} />
+          <Stack.Screen name="Main" component={MainNavigator} />
         </>
       ) : (
         <>
@@ -97,9 +98,10 @@ export function AppNavigator(props: NavigationProps) {
 export type AppStackParamList = {
   Welcome: undefined
   Login: undefined // @demo remove-current-line
-  Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
+  Main: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
+  Settings: undefined
 }
 
 export interface NavigationProps

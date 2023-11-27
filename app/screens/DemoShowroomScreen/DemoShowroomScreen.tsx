@@ -16,7 +16,7 @@ import { useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { ListItem, Screen, Text } from '../../components'
 import { isRTL } from '../../i18n'
-import { DemoTabParamList, DemoTabScreenProps } from '../../navigators/DemoNavigator'
+import { DemoTabParamList, DemoTabScreenProps } from '../../navigators/MainNavigator'
 import { colors, spacing } from '../../theme'
 import { useSafeAreaInsetsStyle } from '../../utils/useSafeAreaInsetsStyle'
 import { DrawerIconButton } from './DrawerIconButton'

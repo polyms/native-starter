@@ -25,7 +25,7 @@ export const WelcomeScreen = (
   const { logout } = useAuthenticationStore()
 
   function goNext() {
-    navigation.navigate('Demo', { screen: 'DemoShowroom' })
+    navigation.navigate('Main', { screen: 'Settings' })
   }
 
   useHeader(

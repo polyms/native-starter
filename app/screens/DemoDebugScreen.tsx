@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 import { Linking, Platform, TextStyle, View, ViewStyle } from 'react-native'
 
 import { Button, ListItem, Screen, Text } from '~/components'
-import { DemoTabScreenProps } from '~/navigators/DemoNavigator'
+import { DemoTabScreenProps } from '~/navigators/MainNavigator'
 import { useAuthenticationStore } from '~/stores/authentication.store'
 import { colors, spacing } from '~/theme'
 

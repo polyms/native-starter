@@ -3,7 +3,7 @@ import { Image, ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
 
 import { ListItem, Screen, Text } from '../components'
 import { isRTL } from '../i18n'
-import { DemoTabScreenProps } from '../navigators/DemoNavigator'
+import { DemoTabScreenProps } from '../navigators/MainNavigator'
 import { spacing } from '../theme'
 import { openLinkInBrowser } from '../utils/openLinkInBrowser'
 

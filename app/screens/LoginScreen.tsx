@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Text } from '@ui-kitten/components'
+import { Button, Icon, Text } from '@ui-kitten/components'
 import { FC, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { TouchableWithoutFeedback } from 'react-native'
 import * as y from 'yup'
 
-import { HTextFieldAccessoryProps, Icon, Screen } from '~/components'
+import { Screen } from '~/components'
 import { HTextField } from '~/components/forms'
 import { AppStackScreenProps } from '~/navigators'
 import { useAuthenticationStore } from '~/stores/authentication.store'
@@ -62,18 +63,16 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
   }
 
   const PasswordRightAccessory = useCallback(
-    (props: HTextFieldAccessoryProps) => {
-      return (
+    () => (
+      <TouchableWithoutFeedback onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}>
         <Icon
-          {...props}
-          icon={isAuthPasswordHidden ? 'view' : 'hidden'}
-          color={theme['color-basic-600']}
-          containerStyle={props.style}
-          size={20}
-          onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
+          name={isAuthPasswordHidden ? 'eye-outline' : 'eye-off-outline'}
+          width={24}
+          height={24}
+          fill={theme['color-basic-600']}
         />
-      )
-    },
+      </TouchableWithoutFeedback>
+    ),
     [isAuthPasswordHidden],
   )
 
@@ -120,14 +119,8 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
         placeholderTx="loginScreen.passwordFieldPlaceholder"
         onSubmitEditing={handleSubmit(login)}
         accessoryRight={PasswordRightAccessory}
-        // accessoryRight={(props) => (
-        //   <TouchableWithoutFeedback onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}>
-        //     <UIIcon {...props} name={!isAuthPasswordHidden ? 'eye-off' : 'eye'} />
-        //   </TouchableWithoutFeedback>
-        // )}
         // onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
-
       <Button testID="login-button" size="large" status="basic" onPress={handleSubmit(login)}>
         {t('loginScreen.tapToSignIn')}
       </Button>

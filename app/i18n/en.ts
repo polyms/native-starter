@@ -41,11 +41,12 @@ const en = {
     tapToSignIn: 'Tap to sign in!',
     hint: 'Hint: you can use any email address and your favorite password :)',
   },
-  demoNavigator: {
+  mainNavigator: {
     componentsTab: 'Components',
     debugTab: 'Debug',
     communityTab: 'Community',
     podcastListTab: 'Podcast',
+    settingsTab: 'Settings',
   },
   demoCommunityScreen: {
     title: 'Connect with the community',
@@ -120,6 +121,10 @@ const en = {
     },
   },
   // @demo remove-block-end
+  settingsScreen: {
+    title: 'Settings',
+    reportBugs: 'Report Bugs',
+  },
 }
 
 export default en
