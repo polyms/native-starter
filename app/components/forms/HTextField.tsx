@@ -137,7 +137,7 @@ const Wrapper = styled.View<FieldState>((theme, { disabled, focus, invalid }) =>
   borderColor: (() => {
     if (invalid) return theme['color-danger-default-border']
     if (focus) return theme['color-primary-default-border']
-    return theme['color-basic-default-border']
+    return theme['color-basic-transparent-default-border']
   })(),
   overflow: 'hidden',
   padding: 8,
@@ -165,14 +165,14 @@ const AccessoryView = styled.View(() => ({
   paddingLeft: 4,
 }))
 
-const InputControl = styled.TextInput((_, { multiline }) => ({
+const InputControl = styled.TextInput((theme, { multiline }) => ({
   flex: 1,
   fontSize: 16,
   paddingLeft: 4,
   paddingRight: 4,
   paddingTop: 0,
   alignSelf: 'stretch',
-  // fontFamily: 'spaceGroteskRegular',
+  fontFamily: theme['text-font-family'],
   minHeight: multiline ? 112 : 24,
 }))
 

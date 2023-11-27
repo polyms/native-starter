@@ -3,14 +3,13 @@ import { Button, Text } from '@ui-kitten/components'
 import { FC, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { TextStyle, ViewStyle } from 'react-native'
 import * as y from 'yup'
 
 import { HTextFieldAccessoryProps, Icon, Screen } from '~/components'
 import { HTextField } from '~/components/forms'
 import { AppStackScreenProps } from '~/navigators'
 import { useAuthenticationStore } from '~/stores/authentication.store'
-import { spacing, useAppTheme } from '~/theme'
+import { spacing, useAppTheme, useStyles } from '~/theme'
 
 const schema = y.object({
   email: y.string().required('Email is required').email('Invalid email format'),
@@ -20,11 +19,10 @@ const schema = y.object({
     .min(6, 'Password must be at least 6 characters'),
 })
 
-export type FormType = y.InferType<typeof schema>
-
 export const LoginScreen: FC<LoginScreenProps> = (_props) => {
   const { t } = useTranslation()
   const theme = useAppTheme()
+  const styles = withStyles()
   const { authEmail, setAuthEmail, setAuthToken } = useAuthenticationStore()
   const {
     control,
@@ -82,17 +80,18 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
   return (
     <Screen
       preset="auto"
-      contentContainerStyle={$screenContentContainer}
+      backgroundColor={theme['background-basic-color-3']}
+      contentContainerStyle={styles.screenContentContainer}
       safeAreaEdges={['top', 'bottom']}
     >
-      <Text style={$signIn} category="h1" testID="login-heading">
+      <Text style={styles.signIn} category="h1" testID="login-heading">
         {t('loginScreen.signIn')}
       </Text>
-      <Text style={$enterDetails} category="s1">
+      <Text style={styles.enterDetails} category="s1">
         {t('loginScreen.enterDetails')}
       </Text>
       {submitCount > 2 && (
-        <Text category="c1" style={$hint} status="danger">
+        <Text category="c1" style={styles.hint} status="danger">
           {t('loginScreen.hint')}
         </Text>
       )}
@@ -100,7 +99,7 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
       <HTextField
         name="email"
         control={control}
-        containerStyle={$textField}
+        containerStyle={styles.textField}
         autoCapitalize="none"
         autoComplete="email"
         autoCorrect={false}
@@ -112,7 +111,7 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
       <HTextField
         name="password"
         control={control}
-        containerStyle={$textField}
+        containerStyle={styles.textField}
         autoCapitalize="none"
         autoComplete="password"
         autoCorrect={false}
@@ -136,28 +135,29 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
   )
 }
 
-const $screenContentContainer: ViewStyle = {
-  paddingVertical: spacing.xxl,
-  paddingHorizontal: spacing.lg,
-}
-
-const $signIn: TextStyle = {
-  marginBottom: spacing.sm,
-}
-
-const $enterDetails: TextStyle = {
-  marginBottom: spacing.lg,
-}
-
-const $hint: TextStyle = {
-  marginBottom: spacing.md,
-  opacity: 0.8,
-}
-
-const $textField: ViewStyle = {
-  marginBottom: spacing.lg,
-}
+const withStyles = () =>
+  useStyles(() => ({
+    screenContentContainer: {
+      paddingVertical: spacing.xxl,
+      paddingHorizontal: spacing.lg,
+    },
+    signIn: {
+      marginBottom: spacing.sm,
+    },
+    enterDetails: {
+      marginBottom: spacing.lg,
+    },
+    hint: {
+      marginBottom: spacing.md,
+      opacity: 0.8,
+    },
+    textField: {
+      marginBottom: spacing.lg,
+    },
+  }))
 
 // ================================================================================================
 
 interface LoginScreenProps extends AppStackScreenProps<'Login'> {}
+
+export type FormType = y.InferType<typeof schema>

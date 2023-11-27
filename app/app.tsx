@@ -15,7 +15,7 @@ import Config from './config'
 import { AppNavigator, useNavigationPersistence } from './navigators'
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
 import { useAppStore } from './stores/app.store'
-import theme, { customFontsToLoad } from './theme'
+import theme, { customFontsToLoad, mapping } from './theme'
 import * as storage from './utils/storage'
 
 /* eslint-disable import/first */
@@ -108,7 +108,7 @@ function App(props: AppProps) {
         <QueryClientProvider client={queryClient}>
           <IconRegistry icons={EvaIconsPack} />
 
-          <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+          <ApplicationProvider {...eva} theme={{ ...eva.light, ...mapping.strict, ...theme }}>
             <AppNavigator
               linking={linking}
               initialState={initialNavigationState}
