@@ -1,6 +1,5 @@
 // const { getDefaultConfig } = require('metro-config')
 const { getDefaultConfig: getDefaultExpoConfig } = require('@expo/metro-config')
-const { withNativeWind } = require('nativewind/metro')
 const MetroConfig = require('@ui-kitten/metro-config')
 
 const evaConfig = {
@@ -43,7 +42,7 @@ if (isExpo) {
 
   metroConfig = (async () => {
     const defaultConfig = MetroConfig.create(evaConfig, getDefaultExpoConfig(__dirname))
-    let config = makeMetroConfig({
+    const config = makeMetroConfig({
       ...defaultConfig,
       projectRoot: __dirname,
       // watchFolders: [`${__dirname}/../..`], // for monorepos
@@ -57,11 +56,6 @@ if (isExpo) {
         resolveRequest: MetroSymlinksResolver(),
         assetExts: [...defaultConfig.resolver.assetExts, 'bin'],
       },
-    })
-
-    config = withNativeWind(config, {
-      input: './app/styles/global.css',
-      inlineRem: 16,
     })
 
     return config

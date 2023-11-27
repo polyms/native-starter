@@ -1,6 +1,5 @@
 // This is the entry point if you run `yarn expo:start`
 // If you run `yarn ios` or `yarn android`, it'll use ./index.js instead.
-import './app/styles/global.css'
 import 'intl-pluralrules'
 
 import { registerRootComponent } from 'expo'
