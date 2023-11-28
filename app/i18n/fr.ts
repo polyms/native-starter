@@ -103,6 +103,9 @@ const fr: Translations = {
     },
   },
   // @demo remove-block-end
+  settingsScreen: {
+    reportBugs: 'Signaler des bugs',
+  },
 }
 
 export default fr

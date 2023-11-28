@@ -4,6 +4,7 @@ const en = {
     cancel: 'Cancel',
     back: 'Back',
     logOut: 'Log Out', // @demo remove-current-line
+    languages: 'Languages',
   },
   welcomeScreen: {
     postscript:
@@ -103,6 +104,7 @@ const en = {
   settingsScreen: {
     title: 'Settings',
     reportBugs: 'Report Bugs',
+    language: 'Language',
   },
 }
 

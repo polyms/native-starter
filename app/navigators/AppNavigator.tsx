@@ -51,6 +51,9 @@ function AppStack() {
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           {/* @demo remove-block-start */}
           <Stack.Screen name="Main" component={MainNavigator} />
+          <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Screen name="LanguageModal" component={Screens.LanguageScreen} />
+          </Stack.Group>
         </>
       ) : (
         <>
@@ -102,6 +105,7 @@ export type AppStackParamList = {
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
   Settings: undefined
+  LanguageModal: undefined
 }
 
 export interface NavigationProps

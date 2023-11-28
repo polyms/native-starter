@@ -100,6 +100,9 @@ const ar: Translations = {
     },
   },
   // @demo remove-block-end
+  settingsScreen: {
+    reportBugs: 'الابلاغ عن اخطاء',
+  },
 }
 
 export default ar

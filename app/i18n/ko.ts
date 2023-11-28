@@ -100,6 +100,9 @@ const ko: Translations = {
     },
   },
   // @demo remove-block-end
+  settingsScreen: {
+    reportBugs: '버그 보고하기',
+  },
 }
 
 export default ko
