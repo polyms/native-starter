@@ -2,7 +2,7 @@ import { Divider, Icon, List, ListItem, Text } from '@ui-kitten/components'
 import * as Application from 'expo-application'
 import React, { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, Text as RNText, TextStyle } from 'react-native'
+import { ImageStyle, Linking, Text as RNText, TextStyle } from 'react-native'
 
 import { Screen } from '~/components'
 import { DemoTabScreenProps } from '~/navigators/MainNavigator'
@@ -42,11 +42,14 @@ export const SettingsScreen: FC<DemoTabScreenProps<'DemoDebug'>> = (_props) => {
     <ListItem
       title={item.title}
       accessoryLeft={(props) => <Icon {...props} name={iconMap[item.title]} />}
-      accessoryRight={(props) => (
-        <RNText {...props} style={[props.style, styles.value]}>
-          {item.value}
-        </RNText>
-      )}
+      accessoryRight={(props) => {
+        const { tintColor: _, width: __, ...style } = props.style as ImageStyle
+        return (
+          <RNText {...props} style={style}>
+            {item.value}
+          </RNText>
+        )
+      }}
     />
   )
 
@@ -62,14 +65,18 @@ export const SettingsScreen: FC<DemoTabScreenProps<'DemoDebug'>> = (_props) => {
 
       <ListItem
         title="Hermes Enabled"
-        accessoryLeft={(props) => (
-          <Icon name="hermes" {...props} style={[props.style, styles.assetsIcon]} pack="assets" />
-        )}
-        accessoryRight={(props) => (
-          <Text category="label" status="info" {...props} style={[props.style, styles.badge]}>
-            {String(usingHermes).toUpperCase()}
-          </Text>
-        )}
+        accessoryLeft={(props) => {
+          const { tintColor: _, ...style } = props.style as ImageStyle
+          return <Icon name="hermes" {...props} style={style} pack="assets" />
+        }}
+        accessoryRight={(props) => {
+          const { tintColor: _, width: __, ...style } = props.style as ImageStyle
+          return (
+            <Text category="label" status="info" {...props} style={[style, styles.badge]}>
+              {String(usingHermes).toUpperCase()}
+            </Text>
+          )
+        }}
       />
 
       <Divider />
@@ -77,9 +84,10 @@ export const SettingsScreen: FC<DemoTabScreenProps<'DemoDebug'>> = (_props) => {
       <ListItem
         title={t('settingsScreen.reportBugs')}
         onPress={() => openLinkInBrowser('https://github.com/polyms/native-starter/issues')}
-        accessoryLeft={(props) => (
-          <Icon name="ladybug" {...props} style={[props.style, styles.assetsIcon]} pack="assets" />
-        )}
+        accessoryLeft={(props) => {
+          const { tintColor: _, ...style } = props.style as ImageStyle
+          return <Icon name="ladybug" {...props} style={style} pack="assets" />
+        }}
       />
 
       <Divider />
@@ -117,12 +125,6 @@ const withStyles = () =>
       borderRadius: 4,
       borderWidth: 2,
       borderColor: theme['color-info-500'],
-      width: 'auto',
-    },
-    assetsIcon: {
-      tintColor: 'none',
-    },
-    value: {
       width: 'auto',
     },
   }))
