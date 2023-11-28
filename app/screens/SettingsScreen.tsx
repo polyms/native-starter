@@ -20,7 +20,7 @@ const iconMap = {
   'App Build Version': 'layers-outline',
 }
 
-export const SettingsScreen: FC<DemoTabScreenProps<'DemoDebug'>> = (_props) => {
+export const SettingsScreen: FC<DemoTabScreenProps<'Settings'>> = (_props) => {
   const { logout } = useAuthenticationStore()
   const styles = withStyles()
   const theme = useAppTheme()

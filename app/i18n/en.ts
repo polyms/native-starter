@@ -43,7 +43,6 @@ const en = {
   },
   mainNavigator: {
     componentsTab: 'Components',
-    debugTab: 'Debug',
     communityTab: 'Community',
     podcastListTab: 'Podcast',
     settingsTab: 'Settings',
@@ -78,26 +77,6 @@ const en = {
     demoHeaderTxExample: 'Yay',
     demoViaTxProp: 'Via `tx` Prop',
     demoViaSpecifiedTxProp: 'Via `{{prop}}Tx` Prop',
-  },
-  demoDebugScreen: {
-    howTo: 'HOW TO',
-    title: 'Debug',
-    tagLine:
-      "Congratulations, you've got a very advanced React Native app template here.  Take advantage of this boilerplate!",
-    reactotron: 'Send to Reactotron',
-    reportBugs: 'Report Bugs',
-    demoList: 'Demo List',
-    demoPodcastList: 'Demo Podcast List',
-    androidReactotronHint:
-      "If this doesn't work, ensure the Reactotron desktop app is running, run adb reverse tcp:9090 tcp:9090 from your terminal, and reload the app.",
-    iosReactotronHint:
-      "If this doesn't work, ensure the Reactotron desktop app is running and reload app.",
-    macosReactotronHint:
-      "If this doesn't work, ensure the Reactotron desktop app is running and reload app.",
-    webReactotronHint:
-      "If this doesn't work, ensure the Reactotron desktop app is running and reload app.",
-    windowsReactotronHint:
-      "If this doesn't work, ensure the Reactotron desktop app is running and reload app.",
   },
   demoPodcastListScreen: {
     title: 'React Native Radio episodes',

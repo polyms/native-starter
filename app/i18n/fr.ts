@@ -46,7 +46,6 @@ const fr: Translations = {
   },
   mainNavigator: {
     componentsTab: 'Composants',
-    debugTab: 'Débogage',
     communityTab: 'Communauté',
     podcastListTab: 'Podcasts',
   },
@@ -81,26 +80,6 @@ const fr: Translations = {
     demoHeaderTxExample: 'Yay',
     demoViaTxProp: 'Via la propriété `tx`',
     demoViaSpecifiedTxProp: 'Via la propriété `{{prop}}Tx` spécifiée',
-  },
-  demoDebugScreen: {
-    howTo: 'COMMENT FAIRE',
-    title: 'Débugage',
-    tagLine:
-      "Félicitations, vous avez un modèle d'application React Native très avancé ici. Profitez de cette base de code !",
-    reactotron: 'Envoyer à Reactotron',
-    reportBugs: 'Signaler des bugs',
-    demoList: 'Liste de démonstration',
-    demoPodcastList: 'Liste de podcasts de démonstration',
-    androidReactotronHint:
-      "Si cela ne fonctionne pas, assurez-vous que l'application de bureau Reactotron est en cours d'exécution, exécutez adb reverse tcp:9090 tcp:9090 à partir de votre terminal, puis rechargez l'application.",
-    iosReactotronHint:
-      "Si cela ne fonctionne pas, assurez-vous que l'application de bureau Reactotron est en cours d'exécution, puis rechargez l'application.",
-    macosReactotronHint:
-      "Si cela ne fonctionne pas, assurez-vous que l'application de bureau Reactotron est en cours d'exécution, puis rechargez l'application.",
-    webReactotronHint:
-      "Si cela ne fonctionne pas, assurez-vous que l'application de bureau Reactotron est en cours d'exécution, puis rechargez l'application.",
-    windowsReactotronHint:
-      "Si cela ne fonctionne pas, assurez-vous que l'application de bureau Reactotron est en cours d'exécution, puis rechargez l'application.",
   },
   demoPodcastListScreen: {
     title: 'Épisodes de Radio React Native',

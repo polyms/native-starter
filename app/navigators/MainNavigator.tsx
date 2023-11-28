@@ -7,17 +7,15 @@ import { TextStyle, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Icon as LIcon } from '../components'
-import { DemoCommunityScreen, DemoDebugScreen, DemoShowroomScreen } from '../screens'
+import { DemoCommunityScreen, DemoShowroomScreen, SettingsScreen } from '../screens'
 import { DemoPodcastListScreen } from '../screens/DemoPodcastListScreen'
 import { colors, spacing, typography } from '../theme'
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator'
-import { SettingsScreen } from '~/screens/SettingsScreen'
 
 export type DemoTabParamList = {
+  Settings: undefined
   DemoCommunity: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
-  DemoDebug: undefined
-  Settings: undefined
   DemoPodcastList: undefined
 }
 
@@ -84,20 +82,9 @@ export function MainNavigator() {
       />
 
       <Tab.Screen
-        name="DemoDebug"
-        component={DemoDebugScreen}
-        options={{
-          tabBarLabel: t('mainNavigator.debugTab'),
-          tabBarIcon: ({ focused }) => (
-            <LIcon icon="debug" color={focused && colors.tint} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
         name="Settings"
         component={SettingsScreen}
-        navigationKey='Settings'
+        navigationKey="Settings"
         options={{
           tabBarLabel: t('mainNavigator.settingsTab'),
           tabBarIcon: ({ focused }) => (

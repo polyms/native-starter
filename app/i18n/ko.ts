@@ -45,7 +45,6 @@ const ko: Translations = {
   },
   mainNavigator: {
     componentsTab: '컴포넌트',
-    debugTab: '디버그',
     communityTab: '커뮤니티',
     podcastListTab: '팟캐스트',
   },
@@ -79,26 +78,6 @@ const ko: Translations = {
     demoHeaderTxExample: '야호',
     demoViaTxProp: '`tx` Prop 을 통해',
     demoViaSpecifiedTxProp: '`{{prop}}Tx` Prop 을 통해',
-  },
-  demoDebugScreen: {
-    howTo: '사용방법',
-    title: '디버그',
-    tagLine:
-      '축하합니다. 여기 아주 고급스러운 React Native 앱 템플릿이 있습니다. 이 보일러 플레이트를 사용해보세요!',
-    reactotron: 'Reactotron 으로 보내기',
-    reportBugs: '버그 보고하기',
-    demoList: '데모 목록',
-    demoPodcastList: '데모 팟캐스트 목록',
-    androidReactotronHint:
-      '만약에 동작하지 않는 경우, Reactotron 데스크탑 앱이 실행중인지 확인 후, 터미널에서 adb reverse tcp:9090 tcp:9090 을 실행한 다음 앱을 다시 실행해보세요.',
-    iosReactotronHint:
-      '만약에 동작하지 않는 경우, Reactotron 데스크탑 앱이 실행중인지 확인 후 앱을 다시 실행해보세요.',
-    macosReactotronHint:
-      '만약에 동작하지 않는 경우, Reactotron 데스크탑 앱이 실행중인지 확인 후 앱을 다시 실행해보세요.',
-    webReactotronHint:
-      '만약에 동작하지 않는 경우, Reactotron 데스크탑 앱이 실행중인지 확인 후 앱을 다시 실행해보세요.',
-    windowsReactotronHint:
-      '만약에 동작하지 않는 경우, Reactotron 데스크탑 앱이 실행중인지 확인 후 앱을 다시 실행해보세요.',
   },
   demoPodcastListScreen: {
     title: 'React Native 라디오 에피소드',

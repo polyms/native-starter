@@ -52,7 +52,7 @@ const config = {
         DemoShowroom: {
           path: 'showroom/:queryIndex?/:itemIndex?',
         },
-        DemoDebug: 'debug',
+        Settings: 'settings',
         DemoPodcastList: 'podcast',
         DemoCommunity: 'community',
       },
