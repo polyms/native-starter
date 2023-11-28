@@ -17,7 +17,6 @@ import { useColorScheme } from 'react-native'
 import Config from '~/config'
 import * as Screens from '~/screens'
 import { useAuthenticationStore } from '~/stores/authentication.store'
-import { useAppTheme } from '~/theme'
 
 // @demo remove-current-line
 import { DemoTabParamList, MainNavigator } from './MainNavigator'
@@ -36,12 +35,11 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 function AppStack() {
   // @demo remove-block-start
   const { isAuthenticated } = useAuthenticationStore()
-  const theme = useAppTheme()
 
   // @demo remove-block-end
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false, navigationBarColor: theme['background-basic-color-3'] }}
+      screenOptions={{ headerShown: false }}
       initialRouteName={isAuthenticated() ? 'Welcome' : 'Login'} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}

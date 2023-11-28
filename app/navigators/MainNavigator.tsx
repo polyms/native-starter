@@ -1,16 +1,129 @@
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { CompositeScreenProps } from '@react-navigation/native'
 import { Icon } from '@ui-kitten/components'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { TextStyle, ViewStyle } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Pressable, TextStyle, ViewStyle } from 'react-native'
 
-import { Icon as LIcon } from '../components'
 import { DemoCommunityScreen, DemoShowroomScreen, SettingsScreen } from '../screens'
 import { DemoPodcastListScreen } from '../screens/DemoPodcastListScreen'
-import { colors, spacing, typography } from '../theme'
+import { spacing, styled, typography, useAppTheme } from '../theme'
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator'
+
+const Tab = createBottomTabNavigator<DemoTabParamList>()
+
+export function MainNavigator() {
+  const { t } = useTranslation()
+  const theme = useAppTheme()
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarHideOnKeyboard: true,
+        tabBarStyle: $tabBar,
+        tabBarActiveTintColor: theme['color-warning-active'],
+        tabBarInactiveTintColor: theme['text-basic-color'],
+        tabBarLabelStyle: $tabBarLabel,
+        tabBarItemStyle: $tabBarItem,
+        tabBarButton(props) {
+          return (
+            <Pressable {...props}>
+              {props.accessibilityState.selected && <FocusBorder />}
+              {props.children}
+            </Pressable>
+          )
+        },
+      }}
+    >
+      <Tab.Screen
+        name="DemoShowroom"
+        component={DemoShowroomScreen}
+        options={{
+          tabBarLabel: t('mainNavigator.componentsTab'),
+          tabBarIcon: ({ color, size }) => (
+            <Icon
+              name="components"
+              style={{ tintColor: color, height: size, width: size }}
+              pack="assets"
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="DemoCommunity"
+        component={DemoCommunityScreen}
+        options={{
+          tabBarLabel: t('mainNavigator.communityTab'),
+          tabBarIcon: ({ color, size }) => (
+            <Icon
+              name="community"
+              style={{ tintColor: color, height: size, width: size }}
+              pack="assets"
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="DemoPodcastList"
+        component={DemoPodcastListScreen}
+        options={{
+          tabBarAccessibilityLabel: t('mainNavigator.podcastListTab'),
+          tabBarLabel: t('mainNavigator.podcastListTab'),
+          tabBarIcon: ({ color, size }) => (
+            <Icon
+              name="podcast"
+              style={{ tintColor: color, height: size, width: size }}
+              pack="assets"
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        navigationKey="Settings"
+        options={{
+          tabBarLabel: t('mainNavigator.settingsTab'),
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="settings-2-outline" fill={color} width={size} height={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
+
+const FocusBorder = styled.View((theme) => ({
+  backgroundColor: theme['color-warning-default'],
+  position: 'absolute',
+  top: -3,
+  left: '10%',
+  right: '10%',
+  height: 4,
+  borderRadius: 4,
+}))
+
+const $tabBar: ViewStyle = {
+  borderTopWidth: 2,
+}
+
+const $tabBarItem: ViewStyle = {
+  paddingTop: spacing.xs,
+}
+
+const $tabBarLabel: TextStyle = {
+  fontSize: 12,
+  fontFamily: typography.primary.medium,
+  lineHeight: spacing.lg,
+  flex: 1,
+}
+
+// @demo remove-file
+
+// ================================================================================================
 
 export type DemoTabParamList = {
   Settings: undefined
@@ -28,88 +141,3 @@ export type DemoTabScreenProps<T extends keyof DemoTabParamList> = CompositeScre
   BottomTabScreenProps<DemoTabParamList, T>,
   AppStackScreenProps<keyof AppStackParamList>
 >
-
-const Tab = createBottomTabNavigator<DemoTabParamList>()
-
-export function MainNavigator() {
-  const { bottom } = useSafeAreaInsets()
-  const { t } = useTranslation()
-
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-        tabBarStyle: [$tabBar, { height: bottom + 70 }],
-        tabBarActiveTintColor: colors.text,
-        tabBarInactiveTintColor: colors.text,
-        tabBarLabelStyle: $tabBarLabel,
-        tabBarItemStyle: $tabBarItem,
-      }}
-    >
-      <Tab.Screen
-        name="DemoShowroom"
-        component={DemoShowroomScreen}
-        options={{
-          tabBarLabel: t('mainNavigator.componentsTab'),
-          tabBarIcon: ({ focused }) => (
-            <LIcon icon="components" color={focused && colors.tint} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DemoCommunity"
-        component={DemoCommunityScreen}
-        options={{
-          tabBarLabel: t('mainNavigator.communityTab'),
-          tabBarIcon: ({ focused }) => (
-            <LIcon icon="community" color={focused && colors.tint} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="DemoPodcastList"
-        component={DemoPodcastListScreen}
-        options={{
-          tabBarAccessibilityLabel: t('mainNavigator.podcastListTab'),
-          tabBarLabel: t('mainNavigator.podcastListTab'),
-          tabBarIcon: ({ focused }) => (
-            <LIcon icon="podcast" color={focused && colors.tint} size={30} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
-        navigationKey="Settings"
-        options={{
-          tabBarLabel: t('mainNavigator.settingsTab'),
-          tabBarIcon: ({ focused }) => (
-            <Icon name="settings-2-outline" fill={focused && colors.tint} width={30} height={30} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  )
-}
-
-const $tabBar: ViewStyle = {
-  backgroundColor: colors.background,
-  borderTopColor: colors.transparent,
-}
-
-const $tabBarItem: ViewStyle = {
-  paddingTop: spacing.md,
-}
-
-const $tabBarLabel: TextStyle = {
-  fontSize: 12,
-  fontFamily: typography.primary.medium,
-  lineHeight: 16,
-  flex: 1,
-}
-
-// @demo remove-file
