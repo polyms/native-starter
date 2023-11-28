@@ -117,8 +117,8 @@ const withStyles = () =>
     },
     title: {
       paddingHorizontal: spacing.lg,
-      marginTop: spacing.sm,
-      marginBottom: spacing.xl,
+      marginTop: spacing.xl,
+      marginBottom: spacing.xs,
     },
     logout: {
       marginTop: spacing.xl,

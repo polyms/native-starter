@@ -29,6 +29,11 @@ const data = [
 export const LanguageScreen: FC<AppStackScreenProps<'LanguageModal'>> = ({ navigation }) => {
   const { t, i18n } = useTranslation()
 
+  const changeLanguage = (lang: string) =>
+    lang === i18n.language
+      ? navigation.goBack()
+      : i18n.changeLanguage(lang).then(() => navigation.goBack())
+
   const renderCloseAction = () => (
     <TopNavigationAction icon={CloseIcon} onPress={() => navigation.goBack()} />
   )
@@ -43,12 +48,10 @@ export const LanguageScreen: FC<AppStackScreenProps<'LanguageModal'>> = ({ navig
     return (
       <ListItem
         title={item.title}
-        onPress={() =>
-          item.lang === i18n.language
-            ? navigation.goBack()
-            : i18n.changeLanguage(item.lang).then(() => navigation.goBack())
+        onPress={() => changeLanguage(item.lang)}
+        accessoryRight={
+          <Radio checked={item.lang === i18n.language} onChange={() => changeLanguage(item.lang)} />
         }
-        accessoryRight={<Radio checked={item.lang === i18n.language} />}
       />
     )
   }

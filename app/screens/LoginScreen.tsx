@@ -3,7 +3,7 @@ import { Button, Icon, Text } from '@ui-kitten/components'
 import { FC, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { TouchableWithoutFeedback } from 'react-native'
+import { Image, TouchableWithoutFeedback } from 'react-native'
 import * as y from 'yup'
 
 import { Screen } from '~/components'
@@ -11,6 +11,8 @@ import { HTextField } from '~/components/forms'
 import { AppStackScreenProps } from '~/navigators'
 import { useAuthenticationStore } from '~/stores/authentication.store'
 import { spacing, useAppTheme, useStyles } from '~/theme'
+
+import logo from '../../assets/images/logo.png'
 
 const schema = y.object({
   email: y.string().required('Email is required').email('Invalid email format'),
@@ -79,10 +81,12 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
   return (
     <Screen
       preset="auto"
-      backgroundColor={theme['background-basic-color-3']}
+      level="2"
       contentContainerStyle={styles.screenContentContainer}
       safeAreaEdges={['top', 'bottom']}
     >
+      <Image style={styles.logo} source={logo} resizeMode="contain" />
+
       <Text style={styles.signIn} category="h1" testID="login-heading">
         {t('loginScreen.signIn')}
       </Text>
@@ -133,6 +137,10 @@ const withStyles = () =>
     screenContentContainer: {
       paddingVertical: spacing.xxl,
       paddingHorizontal: spacing.lg,
+    },
+    logo: {
+      height: 100,
+      width: 80,
     },
     signIn: {
       marginBottom: spacing.sm,
